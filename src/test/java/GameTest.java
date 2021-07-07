@@ -21,7 +21,7 @@ public class GameTest {
 
     @Test
     void test_distributeInitCard() {
-        gameController.distributeInitCard();
+        game.distributeInitCard();
 
         List<User> users = game.getUsers();
         for (User user : users) {

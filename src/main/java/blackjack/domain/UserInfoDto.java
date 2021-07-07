@@ -1,15 +1,15 @@
 package blackjack.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class UserInfoDto {
 
     String name;
-    List<Card> ownedCards = new ArrayList<>();
+    List<Card> ownedCards;
 
-    public User(String name) {
+    public UserInfoDto(String name, List<Card> ownedCards) {
         this.name = name;
+        this.ownedCards = ownedCards;
     }
 
     public String getName() {
@@ -18,9 +18,5 @@ public class User {
 
     public List<Card> getOwnedCards() {
         return this.ownedCards;
-    }
-
-    public void addCard(Card card) {
-        ownedCards.add(card);
     }
 }

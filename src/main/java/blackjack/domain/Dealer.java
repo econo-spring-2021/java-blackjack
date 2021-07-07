@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dealer {
+    public static final int DEALER_REVEAL_CARD_COUNT = 1;
 
     List<Card> ownedCards = new ArrayList<>();
 
@@ -15,7 +16,12 @@ public class Dealer {
         ownedCards.add(card);
     }
 
-    public Card revealOneCard() {
-        return ownedCards.get(0);
+    public List<Card> getRevealCards() {
+        List<Card> revealCards = new ArrayList<>();
+        for (int i = 0; i < DEALER_REVEAL_CARD_COUNT; i++) {
+            revealCards.add(ownedCards.get(0));
+        }
+
+        return revealCards;
     }
 }

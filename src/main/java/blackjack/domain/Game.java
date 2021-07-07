@@ -10,20 +10,35 @@ public class Game {
     List<User> users = new ArrayList<>();
     Dealer dealer = new Dealer();
 
+    //
     public List<User> getUsers() {
         return this.users;
-    }
-
-    public int getUsersCount() {
-        return this.users.size();
     }
 
     public Dealer getDealer() {
         return this.dealer;
     }
+    //
+
+    public List<UserInfoDto> getUserInfoDtos() {
+        List<UserInfoDto> userInfoDtos = new ArrayList<>();
+        for (User user : users) {
+            UserInfoDto dto = new UserInfoDto(user.getName(), user.getOwnedCards());
+            userInfoDtos.add(dto);
+        }
+
+        return userInfoDtos;
+    }
 
     public void addUser(User user) {
         users.add(user);
+    }
+
+    public void distributeInitCard() {
+        for (int userIdx = 0; userIdx < users.size(); userIdx++) {
+            giveInitCardToUser(userIdx);
+        }
+        giveInitCardToDealer();
     }
 
     public void giveInitCardToUser(int userIdx) {
@@ -44,5 +59,9 @@ public class Game {
 
     public void giveCardToDealer(Card card) {
         dealer.addCard(card);
+    }
+
+    public List<Card> getDealerRevealCards() {
+        return dealer.getRevealCards();
     }
 }

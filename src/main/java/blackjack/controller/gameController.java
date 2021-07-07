@@ -1,12 +1,10 @@
 package blackjack.controller;
 
-import blackjack.domain.Card;
-import blackjack.domain.CardPack;
-import blackjack.domain.Game;
-import blackjack.domain.User;
+import blackjack.domain.*;
 import blackjack.view.InputView;
 import blackjack.view.OutputView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
@@ -21,7 +19,9 @@ public class GameController {
 
     public void play() {
         generatePerson();
-        distributeInitCard();
+
+        game.distributeInitCard();
+        OutputView.revealInitCard(game.getUserInfoDtos(), game.getDealerRevealCards());
     }
 
     public void generatePerson() {
@@ -31,12 +31,5 @@ public class GameController {
         for (String userName : UserNames) {
             game.addUser(new User(userName));
         }
-    }
-
-    public void distributeInitCard() {
-        for (int userIdx = 0; userIdx < game.getUsersCount(); userIdx++) {
-            game.giveInitCardToUser(userIdx);
-        }
-        game.giveInitCardToDealer();
     }
 }
