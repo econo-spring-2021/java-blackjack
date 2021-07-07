@@ -3,14 +3,9 @@ package blackjack.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class Dealer {
 
-    String name;
     List<Card> ownedCards = new ArrayList<>();
-
-    public User(String name) {
-        this.name = name;
-    }
 
     public List<Card> getOwnedCards() {
         return this.ownedCards;
@@ -18,5 +13,9 @@ public class User {
 
     public void addCard(Card card) {
         ownedCards.add(card);
+    }
+
+    public Card revealOneCard() {
+        return ownedCards.get(0);
     }
 }
