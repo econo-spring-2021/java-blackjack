@@ -1,5 +1,7 @@
 package blackjack.controller;
 
+import blackjack.domain.Game;
+import blackjack.domain.User;
 import blackjack.view.InputView;
 import blackjack.view.OutputView;
 
@@ -17,7 +19,7 @@ public class GameController {
         List<String> UserNames = InputView.getUserNames();
 
         for (String userName : UserNames) {
-            Game.addUser(new User(userName));
+            game.addUser(new User(userName));
         }
     }
 }
