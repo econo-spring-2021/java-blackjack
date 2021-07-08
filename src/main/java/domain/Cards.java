@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Cards {
     public static final int CARD_NUMBER_START = 2;
@@ -28,6 +29,12 @@ public class Cards {
                 cards.add(new Card(String.valueOf(number), type));
             }
         }
+        Collections.shuffle(cards);
        return cards;
     }
+
+    public static Card giveCard(ArrayList<Card> cards){
+        return cards.remove(0);
+    }
+
 }

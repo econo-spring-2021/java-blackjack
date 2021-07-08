@@ -8,4 +8,8 @@ public class Players {
     public Players(ArrayList<Player> players) {
         this.players = players;
     }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
 }

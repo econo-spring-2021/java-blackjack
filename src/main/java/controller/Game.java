@@ -1,9 +1,6 @@
 package controller;
 
-import domain.Card;
-import domain.CardLetterNumber;
-import domain.Cards;
-import domain.Player;
+import domain.*;
 import view.InputView;
 
 import java.io.IOException;
@@ -16,8 +13,8 @@ public class Game {
         ArrayList<Player> players = new ArrayList<>();
         try {
             catchInvalidInputNameException(inputName);
+            players.add(new Player("딜러"));
             StringTokenizer st = new StringTokenizer(inputName, ",");
-
             while (st.hasMoreTokens()) {
                 players.add(new Player(st.nextToken()));
             }
@@ -40,6 +37,13 @@ public class Game {
             if (c > 'Z' && c < 'a') {
                 throw new InvalidInputNameException();
             }
+        }
+    }
+
+    public static void giveTwoCards(Players players, Cards cards) {
+        for (Player player : players.getPlayers()) {
+            player.getCards().getCards().add(cards.giveCard(cards.getCards()));
+            player.getCards().getCards().add(cards.giveCard(cards.getCards()));
         }
     }
 

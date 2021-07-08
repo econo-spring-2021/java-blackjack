@@ -10,5 +10,8 @@ public class Application {
         Players players = new Players(Game.setPlayerName(InputView.playerNameView()));
         Cards cards = new Cards(Cards.setCards());
 
+        InputView.giveTwoCardsView(players);
+        Game.giveTwoCards(players, cards);
+        InputView.playersTwoCardsView(players);
     }
 }
