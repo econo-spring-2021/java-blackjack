@@ -7,7 +7,6 @@ public class Player {
     private final Cards cards;
     private String result;
 
-
     public Player(String name) {
         this.name = name;
         this.cards = new Cards(new ArrayList<>());
