@@ -43,10 +43,12 @@ public class Game {
     }
 
     public static void giveTwoCards(Players players, Cards cards) {
+        InputView.giveTwoCardsView(players);
         for (Player player : players.getPlayers()) {
             player.getCards().getCards().add(cards.giveCard(cards.getCards()));
             player.getCards().getCards().add(cards.giveCard(cards.getCards()));
         }
+        InputView.playersTwoCardsView(players);
     }
 
     public static void askPlayersOneMoreCard(Players players, Cards cards) throws IOException {
