@@ -12,6 +12,8 @@ public class InputView {
     public static final String PLAYER_NAME_VIEW = "게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)";
     public static final String GIVE_TWO_CARD_VIEW = "에게 각각 2장의 카드를 나누었습니다.";
     public static final String DEALER = "딜러";
+    public static final String ONE_MORE_CARD_VIEW = "는 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)";
+    public static final String CARD = "카드: ";
 
     public static String playerNameView() throws IOException {
         System.out.println(PLAYER_NAME_VIEW);
@@ -37,8 +39,27 @@ public class InputView {
         for (int i = 1; i < players.getPlayers().size(); i++) {
             Player player = players.getPlayers().get(i);
             StringBuilder view = new StringBuilder();
-            view.append(player.getName() + "카드: ").append(player.getCards().getCards().get(0).getCardName()).append(", ").append(player.getCards().getCards().get(1).getCardName());
+            view.append(player.getName() + CARD).append(player.getCards().getCards().get(0).getCardName()).append(", ").append(player.getCards().getCards().get(1).getCardName());
             System.out.println(view.toString());
         }
+    }
+
+    public static String oneMoreCardView(Player player) throws IOException {
+        System.out.println(player.getName() + ONE_MORE_CARD_VIEW);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String ask = br.readLine();
+        return ask;
+    }
+
+    public static void playerCardView(Player player) {
+        StringBuilder view = new StringBuilder();
+        view.append(player.getName()).append(CARD);
+        for (int i = 0; i < player.getCards().getCards().size(); i++) {
+            view.append(player.getCards().getCards().get(i).getCardName());
+            if (i != player.getCards().getCards().size() - 1) {
+                view.append(", ");
+            }
+        }
+        System.out.println(view.toString());
     }
 }

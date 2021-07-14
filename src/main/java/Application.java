@@ -13,5 +13,8 @@ public class Application {
         InputView.giveTwoCardsView(players);
         Game.giveTwoCards(players, cards);
         InputView.playersTwoCardsView(players);
+
+        Game.askPlayersOneMoreCard(players, cards);
+
     }
 }

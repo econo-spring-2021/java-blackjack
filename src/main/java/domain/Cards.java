@@ -9,7 +9,7 @@ public class Cards {
 
     private final ArrayList<Card> cards;
 
-    public Cards(ArrayList<Card> cards){
+    public Cards(ArrayList<Card> cards) {
         this.cards = cards;
     }
 
@@ -21,19 +21,19 @@ public class Cards {
         ArrayList<Card> cards = new ArrayList<>();
         for (int i = CARD_NUMBER_START; i <= CARD_NUMBER_END; i++) {
             for (Card.Type type : Card.Type.values()) {
-                cards.add(new Card(String.valueOf(i), type));
+                cards.add(new Card(type, String.valueOf(i)));
             }
         }
-        for(CardLetterNumber number : CardLetterNumber.values()){
+        for (CardLetterNumber number : CardLetterNumber.values()) {
             for (Card.Type type : Card.Type.values()) {
-                cards.add(new Card(String.valueOf(number), type));
+                cards.add(new Card(type, String.valueOf(number)));
             }
         }
         Collections.shuffle(cards);
-       return cards;
+        return cards;
     }
 
-    public static Card giveCard(ArrayList<Card> cards){
+    public static Card giveCard(ArrayList<Card> cards) {
         return cards.remove(0);
     }
 

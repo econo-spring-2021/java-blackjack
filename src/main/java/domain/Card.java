@@ -8,7 +8,7 @@ public class Card {
     private final Type type;
     private final String number;
 
-    public Card(String number, Type type) {
+    public Card(Type type, String number) {
         this.type = type;
         this.number = number;
     }
