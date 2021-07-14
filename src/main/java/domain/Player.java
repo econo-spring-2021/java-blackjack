@@ -20,4 +20,18 @@ public class Player {
     public String getName() {
         return name;
     }
+
+    public int setResult(int dealerSum, int dealerWinCount) {
+        int playerSum = cards.getCardsSum();
+        if (playerSum >= 0 && playerSum < dealerSum) {
+            result = "승";
+            return 0;
+        }
+        result = "패";
+        return 1;
+    }
+
+    public String getResult() {
+        return result;
+    }
 }

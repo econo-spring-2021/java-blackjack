@@ -16,5 +16,6 @@ public class Application {
         Game.getDealerOneMoreCard(players, cards);
 
         OutputView.playersResultView(players);
+        Game.setWinOrLose(players);
     }
 }

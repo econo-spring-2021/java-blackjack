@@ -12,6 +12,7 @@ public class Game {
     public static final String INVALID_INPUT_NAME_EXCEPTION = "쉼표를 기준으로 사람의 이름을 입력하세요.";
     public static final String INVALID_ONE_CARD_ASK_ANSWER = "예는 y, 아니오는 n으로 입력해주세요.";
     public static final int DEALER_CARDS_MINIMUM_SUM = 16;
+    public static final int BLACKJACK_NUMBER = 21;
 
     public static ArrayList<Player> setPlayerName(String inputName) throws IOException {
         ArrayList<Player> players = new ArrayList<>();
@@ -90,4 +91,12 @@ public class Game {
         }
     }
 
+    public static void setWinOrLose(Players players) {
+        int dealerSum = players.getPlayers().get(0).getCards().getCardsSum() - BLACKJACK_NUMBER;
+        int dealerWinCount = 0;
+        for (int i = 1; i < players.getPlayers().size(); i++) {
+            dealerWinCount += players.getPlayers().get(i).setResult(dealerSum, dealerWinCount);
+        }
+        OutputView.winOrLoseResultView(players, dealerWinCount);
+    }
 }
