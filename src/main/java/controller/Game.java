@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 public class Game {
     public static final String INVALID_INPUT_NAME_EXCEPTION = "쉼표를 기준으로 사람의 이름을 입력하세요.";
     public static final String INVALID_ONE_CARD_ASK_ANSWER = "예는 y, 아니오는 n으로 입력해주세요.";
+    public static final int DEALER_CARDS_MINIMUM_SUM = 16;
 
     public static ArrayList<Player> setPlayerName(String inputName) throws IOException {
         ArrayList<Player> players = new ArrayList<>();
@@ -77,6 +78,14 @@ public class Game {
     public static void catchInvalidOneCardAskAnswer(String answer) throws Exception {
         if (!answer.equals("y") && !answer.equals("n")) {
             throw new Exception(INVALID_ONE_CARD_ASK_ANSWER);
+        }
+    }
+
+    public static void getDealerOneMoreCard(Players players, Cards cards) {
+        Player dealer = players.getPlayers().get(0);
+        if (dealer.getCards().getCardsSum() <= DEALER_CARDS_MINIMUM_SUM) {
+            dealer.getCards().getCards().add(cards.giveCard(cards.getCards()));
+            InputView.dealerOneMoreCardView();
         }
     }
 }

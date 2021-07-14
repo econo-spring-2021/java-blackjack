@@ -12,5 +12,6 @@ public class Application {
 
         Game.giveTwoCards(players, cards);
         Game.askPlayersOneMoreCard(players, cards);
+        Game.getDealerOneMoreCard(players, cards);
     }
 }

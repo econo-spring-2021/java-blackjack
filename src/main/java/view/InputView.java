@@ -14,6 +14,7 @@ public class InputView {
     public static final String DEALER = "딜러";
     public static final String ONE_MORE_CARD_VIEW = "는 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)";
     public static final String CARD = "카드: ";
+    public static final String DEALER_ONE_MORE_CARD_VIEW = "딜러는 16이하라 한 장의 카드를 더 받았습니다.";
 
     public static String playerNameView() throws IOException {
         System.out.println(PLAYER_NAME_VIEW);
@@ -61,5 +62,9 @@ public class InputView {
             }
         }
         System.out.println(view.toString());
+    }
+
+    public static void dealerOneMoreCardView(){
+        System.out.println(DEALER_ONE_MORE_CARD_VIEW);
     }
 }
