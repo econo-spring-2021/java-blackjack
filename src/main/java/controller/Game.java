@@ -2,6 +2,7 @@ package controller;
 
 import domain.*;
 import view.InputView;
+import view.OutputView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class Game {
                 players.getPlayers().get(i).getCards().getCards().add(cards.giveCard(cards.getCards()));
                 answer = askOnePlayerOneMoreCard(players.getPlayers().get(i));
             }
-            InputView.playerCardView(players.getPlayers().get(i));
+            OutputView.playerCardView(players.getPlayers().get(i));
         }
     }
 
@@ -88,4 +89,5 @@ public class Game {
             InputView.dealerOneMoreCardView();
         }
     }
+
 }

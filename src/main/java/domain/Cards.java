@@ -7,7 +7,14 @@ public class Cards {
     public static final int CARD_NUMBER_START = 2;
     public static final int CARD_NUMBER_END = 9;
     public static final int BLACKJACK_NUMBER = 21;
-    public static final int CARD_A_OPTION_Point = 11;
+    public static final int CARD_A_POINT_ELEVEN = 11;
+    public static final int CARD_A_POINT_ONE = 1;
+    public static final String K = "K";
+    public static final String Q = "Q";
+    public static final String J = "J";
+    public static final String A = "A";
+    public static final int KQJ_POINT_TEN = 10;
+
 
     private final ArrayList<Card> cards;
     private int cardsSum;
@@ -28,11 +35,14 @@ public class Cards {
                 cards.add(new Card(type, String.valueOf(i)));
             }
         }
-        for (CardLetterNumber number : CardLetterNumber.values()) {
-            for (Card.Type type : Card.Type.values()) {
-                cards.add(new Card(type, String.valueOf(number)));
-            }
+
+        for (Card.Type type : Card.Type.values()) {
+            cards.add(new Card(type, K));
+            cards.add(new Card(type, Q));
+            cards.add(new Card(type, J));
+            cards.add(new Card(type, A));
         }
+
         Collections.shuffle(cards);
         return cards;
     }
@@ -42,6 +52,7 @@ public class Cards {
     }
 
     public int getCardsSum() {
+        cardsSum = 0;
         for (int i = 0; i < cards.size(); i++) {
             cardsSum += getCardPointNumber(cards.get(i).getNumber());
         }
@@ -49,14 +60,14 @@ public class Cards {
     }
 
     public int getCardPointNumber(String number) {
-        if (number.equals(CardLetterNumber.J) || number.equals(CardLetterNumber.Q) || number.equals(CardLetterNumber.K)) {
-            return CardLetterNumber.J.getNumber();
+        if (number.equals(J) || number.equals(Q) || number.equals(K)) {
+            return KQJ_POINT_TEN;
         }
-        if (number.equals(CardLetterNumber.A)) {
-            if (cardsSum + CARD_A_OPTION_Point <= BLACKJACK_NUMBER) {
-                return CARD_A_OPTION_Point;
+        if (number.equals(A)) {
+            if (cardsSum + CARD_A_POINT_ELEVEN <= BLACKJACK_NUMBER) {
+                return CARD_A_POINT_ELEVEN;
             }
-            return CardLetterNumber.A.getNumber();
+            return CARD_A_POINT_ONE;
         }
         return Integer.parseInt(number);
     }

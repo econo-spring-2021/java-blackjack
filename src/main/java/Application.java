@@ -2,6 +2,7 @@ import controller.Game;
 import domain.Cards;
 import domain.Players;
 import view.InputView;
+import view.OutputView;
 
 import java.io.IOException;
 
@@ -13,5 +14,7 @@ public class Application {
         Game.giveTwoCards(players, cards);
         Game.askPlayersOneMoreCard(players, cards);
         Game.getDealerOneMoreCard(players, cards);
+
+        OutputView.playersResultView(players);
     }
 }

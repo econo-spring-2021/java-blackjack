@@ -32,6 +32,7 @@ public class InputView {
             }
         }
         view += GIVE_TWO_CARD_VIEW;
+        view += "\n";
         System.out.println(view);
     }
 
@@ -43,6 +44,7 @@ public class InputView {
             view.append(player.getName() + CARD).append(player.getCards().getCards().get(0).getCardName()).append(", ").append(player.getCards().getCards().get(1).getCardName());
             System.out.println(view.toString());
         }
+        System.out.println();
     }
 
     public static String oneMoreCardView(Player player) throws IOException {
@@ -52,19 +54,8 @@ public class InputView {
         return ask;
     }
 
-    public static void playerCardView(Player player) {
-        StringBuilder view = new StringBuilder();
-        view.append(player.getName()).append(CARD);
-        for (int i = 0; i < player.getCards().getCards().size(); i++) {
-            view.append(player.getCards().getCards().get(i).getCardName());
-            if (i != player.getCards().getCards().size() - 1) {
-                view.append(", ");
-            }
-        }
-        System.out.println(view.toString());
-    }
-
     public static void dealerOneMoreCardView(){
         System.out.println(DEALER_ONE_MORE_CARD_VIEW);
+        System.out.println();
     }
 }
