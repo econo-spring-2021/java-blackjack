@@ -1,5 +1,8 @@
 package blackjack.domain;
 
+import blackjack.view.InputView;
+import blackjack.view.OutputView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +28,30 @@ public class User {
         ownedCards.add(card);
     }
 
+    public void getMoreCardTillUnableOrDeny(CardPack cardPack) {
+        while (isPossibleToGetMoreCard() && askPlayerWillGetMoreCard()) {
+            addCard(cardPack.getRandomCard());
+
+            OutputView.printPlayersOwnedCards(name, ownedCards);
+        }
+    }
+
+    public boolean askPlayerWillGetMoreCard() {
+        OutputView.askGetMoreCard(name);
+        String answer = InputView.getYesOrNo();
+        if (answer.equals("y")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public boolean isPossibleToGetMoreCard() {
         int cardsValueSum = 0;
         for (Card card : ownedCards) {
             cardsValueSum += card.getValue();
         }
 
-        return cardsValueSum <= 21;
+        return cardsValueSum <= USER_LIMIT_CARD_VALUE;
     }
 }

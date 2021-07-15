@@ -11,8 +11,11 @@ import java.util.List;
 public class OutputView {
 
     private static final String ASKING_USER_NAMES_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)";
-    private static final String DISTRIBUTING_INIT_CARD_MESSAGE = "딜러와 %s에게 각각 %d장의 카드를 나누었습니다.\n";
+
     private static final String DEALER_NAME = "딜러";
+    private static final String DISTRIBUTING_INIT_CARD_MESSAGE = DEALER_NAME + "와 %s에게 각각 %d장의 카드를 나누었습니다.\n";
+
+    private static final String ASKING_GET_MORECARD_MESSAGE = "는 한장의 카드를 더 받겠습니까? (예는 y, 아니요는 n)";
 
     public static void askUserNames() {
         System.out.println(ASKING_USER_NAMES_MESSAGE);
@@ -26,9 +29,9 @@ public class OutputView {
 
         announceDistributingInitCard(userNames);
         for (UserInfoDto dto : userInfoDtos) {
-            printPlayersOwnedCards(true, dto.getName(), dto.getOwnedCards());
+            printPlayersOwnedCards(dto.getName(), dto.getOwnedCards());
         }
-        printPlayersOwnedCards(false, DEALER_NAME, dealerRevealCards);
+        printPlayersOwnedCards(DEALER_NAME, dealerRevealCards);
     }
 
     public static void announceDistributingInitCard(List<String> users) {
@@ -36,10 +39,8 @@ public class OutputView {
         System.out.printf(DISTRIBUTING_INIT_CARD_MESSAGE, userNames, Game.INIT_CARD_COUNT);
     }
 
-    public static void printPlayersOwnedCards(boolean isUser, String name, List<Card> cards) {
-        String message = name;
-        if (isUser) message += "카드";
-        message += ": ";
+    public static void printPlayersOwnedCards( String name, List<Card> cards) {
+        String message = name + "카드: ";
         message += String.join(",", parseCardListToStringList(cards));
         message += "\n";
 
@@ -53,5 +54,13 @@ public class OutputView {
         }
 
         return cardStrings;
+    }
+
+    public static void askGetMoreCard(String username) {
+        System.out.println(username + ASKING_GET_MORECARD_MESSAGE);
+    }
+
+    public static void printExceptionMessage(Exception e) {
+        System.out.println(e.getMessage());
     }
 }

@@ -22,6 +22,8 @@ public class GameController {
 
         game.distributeInitCard();
         OutputView.revealInitCard(game.getUserInfoDtos(), game.getDealerRevealCards());
+
+        game.playersGetMoreCard();
     }
 
     public void generatePerson() {

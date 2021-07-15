@@ -64,4 +64,10 @@ public class Game {
     public List<Card> getDealerRevealCards() {
         return dealer.getRevealCards();
     }
+
+    public void playersGetMoreCard() {
+        for (User user : users) {
+            user.getMoreCardTillUnableOrDeny(cardPack);
+        }
+    }
 }
