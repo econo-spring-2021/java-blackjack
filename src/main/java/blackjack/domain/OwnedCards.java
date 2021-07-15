@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OwnedCards {
-    List<Card> cards = new ArrayList<>();
+    List<Card> cards;
+
+    public OwnedCards() {
+        cards = new ArrayList<>();
+    }
+
+    public OwnedCards(List<Card> cards) {
+        this.cards = cards;
+    }
 
     public Card getCard(int index) { return cards.get(index); }
     public List<Card> getCards() {

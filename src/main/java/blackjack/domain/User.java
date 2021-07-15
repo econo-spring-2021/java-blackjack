@@ -3,8 +3,6 @@ package blackjack.domain;
 import blackjack.view.InputView;
 import blackjack.view.OutputView;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class User {
     public static final int USER_LIMIT_CARD_VALUE = 21;
@@ -21,8 +19,8 @@ public class User {
         return name;
     }
 
-    public List<Card> getOwnedCards() {
-        return ownedCards.getCards();
+    public OwnedCards getOwnedCards() {
+        return ownedCards;
     }
 
     public void addCard(Card card) {
@@ -33,7 +31,7 @@ public class User {
         while (isPossibleToGetMoreCard() && askPlayerWillGetMoreCard()) {
             addCard(cardPack.getRandomCard());
 
-            OutputView.printPlayersOwnedCards(name, getOwnedCards());
+            OutputView.printPlayersOwnedCards(name, ownedCards);
         }
     }
 

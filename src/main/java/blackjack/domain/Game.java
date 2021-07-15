@@ -20,14 +20,22 @@ public class Game {
     }
     //
 
-    public List<UserInfoDto> getUserInfoDtos() {
-        List<UserInfoDto> userInfoDtos = new ArrayList<>();
+    public List<PlayerInfoDto> getUserInfoDtos() {
+        List<PlayerInfoDto> playerInfoDtos = new ArrayList<>();
         for (User user : users) {
-            UserInfoDto dto = new UserInfoDto(user.getName(), user.getOwnedCards());
-            userInfoDtos.add(dto);
+            PlayerInfoDto dto = new PlayerInfoDto(user.getName(), user.getOwnedCards());
+            playerInfoDtos.add(dto);
         }
 
-        return userInfoDtos;
+        return playerInfoDtos;
+    }
+
+    public PlayerInfoDto getDealerInfoDto() {
+        return dealer.getDealerInfoDto();
+    }
+
+    public PlayerInfoDto getDealerRevealCards() {
+        return dealer.getDealerRevealInfoDto();
     }
 
     public void addUser(User user) {
@@ -59,10 +67,6 @@ public class Game {
 
     public void giveCardToDealer(Card card) {
         dealer.addCard(card);
-    }
-
-    public DealerCardDto getDealerRevealCards() {
-        return dealer.getRevealCards();
     }
 
     public void playersGetMoreCard() {

@@ -1,50 +1,49 @@
 package blackjack.view;
 
-import blackjack.domain.Card;
-import blackjack.domain.DealerCardDto;
-import blackjack.domain.Game;
-import blackjack.domain.UserInfoDto;
+import blackjack.domain.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OutputView {
 
     private static final String ASKING_USER_NAMES_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)";
-
-    private static final String DEALER_NAME = "딜러";
-    private static final String DISTRIBUTING_INIT_CARD_MESSAGE = DEALER_NAME + "와 %s에게 각각 %d장의 카드를 나누었습니다.\n";
-
+    private static final String DISTRIBUTING_INIT_CARD_MESSAGE = "%s와 %s에게 각각 %d장의 카드를 나누었습니다.\n";
     private static final String ASKING_GET_MORECARD_MESSAGE = "는 한장의 카드를 더 받겠습니까? (예는 y, 아니요는 n)";
-
-    private static final String DEALER_ONEMORE_CARD_MESSAGE = DEALER_NAME + "는 16이하라 한장의 카드를 더 받았습니다.";
+    private static final String DEALER_ONEMORE_CARD_MESSAGE = "는 16이하라 한장의 카드를 더 받았습니다.";
 
     public static void askUserNames() {
         System.out.println(ASKING_USER_NAMES_MESSAGE);
     }
 
-    public static void revealInitCard(List<UserInfoDto> userInfoDtos, DealerCardDto dealerRevealCards) {
-        List<String> userNames = new ArrayList<>();
-        for (UserInfoDto dto : userInfoDtos) {
-            userNames.add(dto.getName());
-        }
+    public static void revealInitCard(List<PlayerInfoDto> userInfoDtos, PlayerInfoDto dealerRevealInfoDto) {
+        System.out.println("");
 
-        announceDistributingInitCard(userNames);
-        for (UserInfoDto dto : userInfoDtos) {
+        announceDistribuyingInitCard(dealerRevealInfoDto.getName(),
+                userInfoDtos.stream().map(dto -> dto.getName()).collect(Collectors.toList()));
+
+        for (PlayerInfoDto dto : userInfoDtos) {
             printPlayersOwnedCards(dto.getName(), dto.getOwnedCards());
         }
-        printPlayersOwnedCards(DEALER_NAME, dealerRevealCards.getOwnedCards());
+        printPlayersOwnedCards(dealerRevealInfoDto.getName(), dealerRevealInfoDto.getOwnedCards());
+
+        System.out.println("");
     }
 
-    public static void announceDistributingInitCard(List<String> users) {
-        String userNames = String.join(",", users);
-        System.out.printf(DISTRIBUTING_INIT_CARD_MESSAGE, userNames, Game.INIT_CARD_COUNT);
+    public static void announceDistribuyingInitCard(String dealerName, List<String> usersName) {
+        String userNames = String.join(",", usersName);
+        System.out.printf(DISTRIBUTING_INIT_CARD_MESSAGE, dealerName, userNames, Game.INIT_CARD_COUNT);
     }
 
-    public static void printPlayersOwnedCards( String name, List<Card> cards) {
+    public static void printPlayersOwnedCardWithScore(String name, OwnedCards ownedCards) {
+        printPlayersOwnedCards(name, ownedCards);
+        System.out.println(" => 결과: " + ownedCards.getScore());
+    }
+
+    public static void printPlayersOwnedCards(String name, OwnedCards cards) {
         String message = name + "카드: ";
-        message += String.join(",", parseCardListToStringList(cards));
+        message += String.join(",", parseCardListToStringList(cards.getCards()));
         message += "\n";
 
         System.out.print(message);
@@ -63,11 +62,13 @@ public class OutputView {
         System.out.println(username + ASKING_GET_MORECARD_MESSAGE);
     }
 
-    public static void printExceptionMessage(Exception e) {
-        System.out.println(e.getMessage());
+    public static void announcingDealerOneMoreCard(String dealerName) {
+        System.out.println("");
+        System.out.print(dealerName + DEALER_ONEMORE_CARD_MESSAGE);
+        System.out.println("");
     }
 
-    public static void announcingDealerOneMoreCard() {
-        System.out.print(DEALER_ONEMORE_CARD_MESSAGE);
+    public static void printExceptionMessage(Exception e) {
+        System.out.println(e.getMessage());
     }
 }

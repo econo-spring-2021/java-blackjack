@@ -25,10 +25,10 @@ public class GameTest {
 
         List<User> users = game.getUsers();
         for (User user : users) {
-            Assertions.assertEquals(2, user.getOwnedCards().size());
+            Assertions.assertEquals(2, user.getOwnedCards().getCards().size());
         }
 
         Dealer dealer = game.getDealer();
-        Assertions.assertEquals(2, dealer.getOwnedCards().size());
+        Assertions.assertEquals(2, dealer.getOwnedCards().getCards().size());
     }
 }

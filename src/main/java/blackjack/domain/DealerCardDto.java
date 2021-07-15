@@ -4,13 +4,13 @@ import java.util.List;
 
 public class DealerCardDto {
 
-    List<Card> ownedCards;
+    OwnedCards ownedCards;
 
     public DealerCardDto(List<Card> ownedCards) {
-        this.ownedCards = ownedCards;
+        ownedCards = ownedCards;
     }
 
-    public List<Card> getOwnedCards() {
-        return this.ownedCards;
+    public OwnedCards getOwnedCards() {
+        return ownedCards;
     }
 }
