@@ -20,15 +20,31 @@ public class CardPack {
 
         cardIsSelected[randomShapeIdx][randomValueIdx] = true;
         CardShape randomShape = CardShape.values()[randomShapeIdx];
+        String randomeDelimeter = getDelimeterFromIdx(randomValueIdx);
         int randomValue = getCardValueFromIdx(randomValueIdx);
-        return new Card(randomShape, randomValue);
+        return new Card(randomShape, randomeDelimeter, randomValue);
     }
 
     public boolean checkIsSelected(int shapeIdx, int valueIdx) {
         return cardIsSelected[shapeIdx][valueIdx];
     }
 
-    private int getCardValueFromIdx(int idx) {
+    public static String getDelimeterFromIdx(int idx) {
+        idx++;
+        if (idx == 1) {
+            return "A";
+        } else if (idx == 11) {
+            return "J";
+        } else if (idx == 12) {
+            return "Q";
+        } else if (idx == 13) {
+            return "K";
+        } else {
+            return Integer.toString(idx);
+        }
+    }
+
+    public static int getCardValueFromIdx(int idx) {
         idx++;
         if (idx >= 11) return 10;
         else return idx;
