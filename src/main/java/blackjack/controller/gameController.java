@@ -27,6 +27,7 @@ public class GameController {
         game.playersGetMoreCard();
 
         showPlayerCardState();
+        showGameResult();
     }
 
     public void generatePerson() {
@@ -38,7 +39,7 @@ public class GameController {
         }
     }
 
-    public void revealInitCard(List<PlayerInfoDto> userInfoDtos, PlayerInfoDto dealerRevealInfoDto) {
+    public void revealInitCard(List<UserInfoDto> userInfoDtos, DealerInfoDto dealerRevealInfoDto) {
         OutputView.announceDistribuyingInitCard(dealerRevealInfoDto.getName(),
                 userInfoDtos.stream().map(dto -> dto.getName()).collect(Collectors.toList()));
 
@@ -49,14 +50,52 @@ public class GameController {
     }
 
     public void showPlayerCardState() {
-        List<PlayerInfoDto> userInfoDtos = game.getUserInfoDtos();
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        OutputView.printPlayersOwnedCardWithScore(
+                dealerInfoDto.getName(), dealerInfoDto.getOwnedCards());
+
+        List<UserInfoDto> userInfoDtos = game.getUserInfoDtos();
         for (PlayerInfoDto userInfoDto : userInfoDtos) {
             OutputView.printPlayersOwnedCardWithScore(
                     userInfoDto.getName(), userInfoDto.getOwnedCards());
         }
+    }
 
-        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
-        OutputView.printPlayersOwnedCardWithScore(
-                dealerInfoDto.getName(), dealerInfoDto.getOwnedCards());
+    public void showGameResult() {
+        DealerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        List<UserInfoDto> userInfoDtos = game.getUserInfoDtos();
+
+        int dealerScore = dealerInfoDto.getOwnedCards().getScore();
+        judgeUserResult(userInfoDtos, dealerScore);
+
+        int dealerWinCount = calculateDealerWinCount(userInfoDtos);
+        int dealerDrawCount = calculateDealerDrawCount(userInfoDtos);
+        int dealerLostCount = userInfoDtos.size() - dealerWinCount - dealerDrawCount;
+        dealerInfoDto.setGameResult(dealerWinCount, dealerLostCount, dealerDrawCount);
+        OutputView.printGameResult(dealerInfoDto, userInfoDtos);
+    }
+
+    private void judgeUserResult(List<UserInfoDto> userInfoDtos, int dealerScore) {
+        for (UserInfoDto userInfoDto : userInfoDtos) {
+            userInfoDto.judgeResult(dealerScore);
+        }
+    }
+
+    private int calculateDealerDrawCount(List<UserInfoDto> userInfoDtos) {
+        int drawCount = 0;
+        for (UserInfoDto userInfoDto : userInfoDtos) {
+            drawCount += userInfoDto.returnOneIfDrawerElseReturnZero();
+        }
+
+        return drawCount;
+    }
+
+    private int calculateDealerWinCount(List<UserInfoDto> userInfoDtos) {
+        int winCount = 0;
+        for (UserInfoDto userInfoDto : userInfoDtos) {
+            winCount += userInfoDto.returnOneIfWinnerElseReturnZero();
+        }
+
+        return winCount;
     }
 }

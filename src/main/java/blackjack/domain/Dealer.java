@@ -21,17 +21,17 @@ public class Dealer {
         return ownedCards;
     }
 
-    public PlayerInfoDto getDealerInfoDto() {
-        return new PlayerInfoDto(name, ownedCards);
+    public DealerInfoDto getDealerInfoDto() {
+        return new DealerInfoDto(name, ownedCards);
     }
 
-    public PlayerInfoDto getDealerRevealInfoDto() {
+    public DealerInfoDto getDealerRevealInfoDto() {
         List<Card> revealCards = new ArrayList<>();
         for (int i = 0; i < DEALER_REVEAL_CARD_COUNT; i++) {
             revealCards.add(ownedCards.getCard(i));
         }
 
-        return new PlayerInfoDto(name, revealCards);
+        return new DealerInfoDto(name, revealCards);
     }
 
     public void addCard(Card card) {

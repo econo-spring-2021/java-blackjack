@@ -2,6 +2,7 @@ package blackjack.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Game {
     public static final int INIT_CARD_COUNT = 2;
@@ -20,21 +21,16 @@ public class Game {
     }
     //
 
-    public List<PlayerInfoDto> getUserInfoDtos() {
-        List<PlayerInfoDto> playerInfoDtos = new ArrayList<>();
-        for (User user : users) {
-            PlayerInfoDto dto = new PlayerInfoDto(user.getName(), user.getOwnedCards());
-            playerInfoDtos.add(dto);
-        }
-
-        return playerInfoDtos;
+    public List<UserInfoDto> getUserInfoDtos() {
+        return users.stream().map(user -> new UserInfoDto(user.getName(), user.getOwnedCards()))
+                .collect(Collectors.toList());
     }
 
-    public PlayerInfoDto getDealerInfoDto() {
+    public DealerInfoDto getDealerInfoDto() {
         return dealer.getDealerInfoDto();
     }
 
-    public PlayerInfoDto getDealerRevealCards() {
+    public DealerInfoDto getDealerRevealCards() {
         return dealer.getDealerRevealInfoDto();
     }
 

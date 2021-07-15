@@ -7,6 +7,9 @@ public class PlayerInfoDto {
     String name;
     OwnedCards ownedCards;
 
+    public PlayerInfoDto() {
+    }
+
     public PlayerInfoDto(String name, OwnedCards ownedCards) {
         this.name = name;
         this.ownedCards = ownedCards;
