@@ -61,7 +61,7 @@ public class Game {
         dealer.addCard(card);
     }
 
-    public List<Card> getDealerRevealCards() {
+    public DealerCardDto getDealerRevealCards() {
         return dealer.getRevealCards();
     }
 

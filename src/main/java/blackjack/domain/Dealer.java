@@ -6,23 +6,27 @@ import java.util.List;
 public class Dealer {
     public static final int DEALER_REVEAL_CARD_COUNT = 1;
 
-    List<Card> ownedCards = new ArrayList<>();
+    OwnedCards ownedCards;
+
+    public Dealer() {
+        this.ownedCards = new OwnedCards();
+    }
 
     public List<Card> getOwnedCards() {
-        return this.ownedCards;
+        return ownedCards.getCards();
     }
 
     public void addCard(Card card) {
-        ownedCards.add(card);
+        ownedCards.addCard(card);
     }
 
-    public List<Card> getRevealCards() {
+    public DealerCardDto getRevealCards() {
         List<Card> revealCards = new ArrayList<>();
         for (int i = 0; i < DEALER_REVEAL_CARD_COUNT; i++) {
-            revealCards.add(ownedCards.get(0));
+            revealCards.add(ownedCards.getCard(i));
         }
 
-        return revealCards;
+        return new DealerCardDto(revealCards);
     }
 
     public void getMoreCardIfPossible() {

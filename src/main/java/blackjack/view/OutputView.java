@@ -1,6 +1,7 @@
 package blackjack.view;
 
 import blackjack.domain.Card;
+import blackjack.domain.DealerCardDto;
 import blackjack.domain.Game;
 import blackjack.domain.UserInfoDto;
 
@@ -21,7 +22,7 @@ public class OutputView {
         System.out.println(ASKING_USER_NAMES_MESSAGE);
     }
 
-    public static void revealInitCard(List<UserInfoDto> userInfoDtos, List<Card> dealerRevealCards) {
+    public static void revealInitCard(List<UserInfoDto> userInfoDtos, DealerCardDto dealerRevealCards) {
         List<String> userNames = new ArrayList<>();
         for (UserInfoDto dto : userInfoDtos) {
             userNames.add(dto.getName());
@@ -31,7 +32,7 @@ public class OutputView {
         for (UserInfoDto dto : userInfoDtos) {
             printPlayersOwnedCards(dto.getName(), dto.getOwnedCards());
         }
-        printPlayersOwnedCards(DEALER_NAME, dealerRevealCards);
+        printPlayersOwnedCards(DEALER_NAME, dealerRevealCards.getOwnedCards());
     }
 
     public static void announceDistributingInitCard(List<String> users) {

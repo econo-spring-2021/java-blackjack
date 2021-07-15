@@ -51,41 +51,4 @@ public class CardPack {
         if (idx >= 11) return 10;
         else return idx;
     }
-
-    public static int getTotalScore(List<Card> cards) {
-        int score = 0;
-        for (Card card : cards) {
-            score += card.getValue();
-        }
-
-        int aceCount = getAceCount(cards);
-        score += getMaxAddtitionAceScore(User.USER_LIMIT_CARD_VALUE - score, aceCount);
-
-        if (score > User.USER_LIMIT_CARD_VALUE) {
-            return 0;
-        } else {
-            return score;
-        }
-    }
-
-    public static int getMaxAddtitionAceScore(int restScore, int aceCount) {
-        if (restScore <= 0) {
-            return 0;
-        }
-
-        int possibleCointToAdd = restScore / 9;
-        int addedAceCount = Math.min(possibleCointToAdd, aceCount);
-        int addedAceValue = addedAceCount * 9;
-
-        return addedAceValue;
-    }
-
-    public static int getAceCount(List<Card> cards) {
-        int count = 0;
-        for (Card card : cards) {
-            count += card.returnOneIfAceElseReturnZero();
-        }
-
-        return count;
-    }
 }
