@@ -18,6 +18,8 @@ public class OutputView {
 
     private static final String ASKING_GET_MORECARD_MESSAGE = "는 한장의 카드를 더 받겠습니까? (예는 y, 아니요는 n)";
 
+    private static final String DEALER_ONEMORE_CARD_MESSAGE = DEALER_NAME + "는 16이하라 한장의 카드를 더 받았습니다.";
+
     public static void askUserNames() {
         System.out.println(ASKING_USER_NAMES_MESSAGE);
     }
@@ -63,5 +65,9 @@ public class OutputView {
 
     public static void printExceptionMessage(Exception e) {
         System.out.println(e.getMessage());
+    }
+
+    public static void announcingDealerOneMoreCard() {
+        System.out.print(DEALER_ONEMORE_CARD_MESSAGE);
     }
 }
