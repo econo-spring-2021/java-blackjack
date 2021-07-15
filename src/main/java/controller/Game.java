@@ -92,10 +92,11 @@ public class Game {
     }
 
     public static void setWinOrLose(Players players) {
-        int dealerSum = players.getPlayers().get(0).getCards().getCardsSum() - BLACKJACK_NUMBER;
+        int dealerScore = BLACKJACK_NUMBER - players.getPlayers().get(0).getCards().getCardsSum() ;
         int dealerWinCount = 0;
         for (int i = 1; i < players.getPlayers().size(); i++) {
-            dealerWinCount += players.getPlayers().get(i).setResult(dealerSum, dealerWinCount);
+            players.getPlayers().get(i).setResult(dealerScore);
+            dealerWinCount += players.getPlayers().get(i).getDealerWinCount();
         }
         OutputView.winOrLoseResultView(players, dealerWinCount);
     }

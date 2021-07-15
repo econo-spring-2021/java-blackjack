@@ -3,6 +3,10 @@ package domain;
 import java.util.ArrayList;
 
 public class Player {
+    public static final String WIN = "승";
+    public static final String LOSE = "패";
+    public static final int BLACKJACK_NUMBER = 21;
+
     private String name;
     private final Cards cards;
     private String result;
@@ -20,13 +24,19 @@ public class Player {
         return name;
     }
 
-    public int setResult(int dealerSum, int dealerWinCount) {
-        int playerSum = cards.getCardsSum();
-        if (playerSum >= 0 && playerSum < dealerSum) {
-            result = "승";
+    public void setResult(int dealerSum) {
+        int playerScore = BLACKJACK_NUMBER - cards.getCardsSum();
+        if (playerScore >= 0 && playerScore <= dealerSum) {
+            result = WIN;
+            return;
+        }
+        result = LOSE;
+    }
+
+    public int getDealerWinCount() {
+        if (result.equals(WIN)) {
             return 0;
         }
-        result = "패";
         return 1;
     }
 

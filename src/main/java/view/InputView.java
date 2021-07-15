@@ -15,6 +15,8 @@ public class InputView {
     public static final String ONE_MORE_CARD_VIEW = "는 한 장의 카드를 더 받겠습니까? (예는 y, 아니오는 n)";
     public static final String CARD = "카드: ";
     public static final String DEALER_ONE_MORE_CARD_VIEW = "딜러는 16이하라 한 장의 카드를 더 받았습니다.";
+    public static final String WITH = "와 ";
+    public static final String COMMA = ", ";
 
     public static String playerNameView() throws IOException {
         System.out.println(PLAYER_NAME_VIEW);
@@ -24,11 +26,11 @@ public class InputView {
 
     public static void giveTwoCardsView(Players players) {
         String view = DEALER;
-        view += "와 ";
+        view += WITH;
         for (int i = 1; i < players.getPlayers().size(); i++) {
             view += players.getPlayers().get(i).getName();
             if (i != players.getPlayers().size() - 1) {
-                view += ", ";
+                view += COMMA;
             }
         }
         view += GIVE_TWO_CARD_VIEW;
@@ -41,7 +43,7 @@ public class InputView {
         for (int i = 1; i < players.getPlayers().size(); i++) {
             Player player = players.getPlayers().get(i);
             StringBuilder view = new StringBuilder();
-            view.append(player.getName() + CARD).append(player.getCards().getCards().get(0).getCardName()).append(", ").append(player.getCards().getCards().get(1).getCardName());
+            view.append(player.getName() + CARD).append(player.getCards().getCards().get(0).getCardName()).append(COMMA).append(player.getCards().getCards().get(1).getCardName());
             System.out.println(view.toString());
         }
         System.out.println();
