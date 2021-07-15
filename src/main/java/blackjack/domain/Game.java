@@ -69,5 +69,6 @@ public class Game {
         for (User user : users) {
             user.getMoreCardTillUnableOrDeny(cardPack);
         }
+        dealer.getMoreCardIfPossible();
     }
 }

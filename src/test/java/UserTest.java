@@ -17,7 +17,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("카드가 5, 5 인 경우, 유저의 카드 뽑는 판정이 옳은가")
+    @DisplayName("카드가 5/5 인 경우, 유저의 카드 뽑는 판정이 옳은가")
     public void test_isPossibleToGetMoreCard_with5and5Card() {
         user.addCard(new Card(CardShape.CLOVER, CardPack.getDelimeterFromIdx(4), CardPack.getCardValueFromIdx(4)));
         user.addCard(new Card(CardShape.CLOVER, CardPack.getDelimeterFromIdx(4), CardPack.getCardValueFromIdx(4)));
@@ -27,7 +27,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("카드가 10, 10, 10 인 경우, 유저의 카드 뽑는 판정이 옳은가")
+    @DisplayName("카드가 10/10/10 인 경우, 유저의 카드 뽑는 판정이 옳은가")
     public void test_isPossibleToGetMoreCard_with10and10and10Card() {
         user.addCard(new Card(CardShape.CLOVER, CardPack.getDelimeterFromIdx(9),CardPack.getCardValueFromIdx(9)));
         user.addCard(new Card(CardShape.CLOVER, CardPack.getDelimeterFromIdx(9),CardPack.getCardValueFromIdx(9)));
@@ -37,7 +37,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("카드가 10, 10, ACE 인 경우, 유저의 카드 뽑는 판정이 옳은가")
+    @DisplayName("카드가 10/10/ACE 인 경우, 유저의 카드 뽑는 판정이 옳은가")
     public void test_isPossibleToGetMoreCard_with10and10andACECard() {
         user.addCard(new Card(CardShape.CLOVER, CardPack.getDelimeterFromIdx(9),CardPack.getCardValueFromIdx(9)));
         user.addCard(new Card(CardShape.CLOVER, CardPack.getDelimeterFromIdx(9),CardPack.getCardValueFromIdx(9)));

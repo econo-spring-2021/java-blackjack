@@ -24,4 +24,12 @@ public class Dealer {
 
         return revealCards;
     }
+
+    public void getMoreCardIfPossible() {
+
+    }
+
+    public void getCardsSum() {
+
+    }
 }

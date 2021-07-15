@@ -16,4 +16,12 @@ public class Card {
     public String getDelimeter() { return delimeter; }
 
     public int getValue() { return value; }
+
+    public int returnOneIfAceElseReturnZero() {
+        if (value == 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }
