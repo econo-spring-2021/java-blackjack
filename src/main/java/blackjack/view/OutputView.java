@@ -17,22 +17,10 @@ public class OutputView {
         System.out.println(ASKING_USER_NAMES_MESSAGE);
     }
 
-    public static void revealInitCard(List<PlayerInfoDto> userInfoDtos, PlayerInfoDto dealerRevealInfoDto) {
-        System.out.println("");
-
-        announceDistribuyingInitCard(dealerRevealInfoDto.getName(),
-                userInfoDtos.stream().map(dto -> dto.getName()).collect(Collectors.toList()));
-
-        for (PlayerInfoDto dto : userInfoDtos) {
-            printPlayersOwnedCards(dto.getName(), dto.getOwnedCards());
-        }
-        printPlayersOwnedCards(dealerRevealInfoDto.getName(), dealerRevealInfoDto.getOwnedCards());
-
-        System.out.println("");
-    }
-
     public static void announceDistribuyingInitCard(String dealerName, List<String> usersName) {
         String userNames = String.join(",", usersName);
+
+        System.out.println("");
         System.out.printf(DISTRIBUTING_INIT_CARD_MESSAGE, dealerName, userNames, Game.INIT_CARD_COUNT);
     }
 

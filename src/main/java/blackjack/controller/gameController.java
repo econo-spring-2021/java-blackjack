@@ -5,6 +5,7 @@ import blackjack.view.InputView;
 import blackjack.view.OutputView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameController {
     Game game;
@@ -21,7 +22,7 @@ public class GameController {
         generatePerson();
 
         game.distributeInitCard();
-        OutputView.revealInitCard(game.getUserInfoDtos(), game.getDealerRevealCards());
+        revealInitCard(game.getUserInfoDtos(), game.getDealerRevealCards());
 
         game.playersGetMoreCard();
 
@@ -35,6 +36,16 @@ public class GameController {
         for (String userName : UserNames) {
             game.addUser(new User(userName));
         }
+    }
+
+    public void revealInitCard(List<PlayerInfoDto> userInfoDtos, PlayerInfoDto dealerRevealInfoDto) {
+        OutputView.announceDistribuyingInitCard(dealerRevealInfoDto.getName(),
+                userInfoDtos.stream().map(dto -> dto.getName()).collect(Collectors.toList()));
+
+        for (PlayerInfoDto dto : userInfoDtos) {
+            OutputView.printPlayersOwnedCards(dto.getName(), dto.getOwnedCards());
+        }
+        OutputView.printPlayersOwnedCards(dealerRevealInfoDto.getName(), dealerRevealInfoDto.getOwnedCards());
     }
 
     public void showPlayerCardState() {
