@@ -1,54 +1,36 @@
 package blackjack.domain;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CardPack {
     public static final int CARD_SHAPE_COUNT = 4;
     public static final int CARD_VALUE_COUNT = 13;
 
-    boolean[][] cardIsSelected = new boolean[CARD_SHAPE_COUNT][CARD_VALUE_COUNT];
+    List<Card> cards = new ArrayList<>();
+    int selectedIndex = -1;
 
-    // 분해 가능??
-    public Card getRandomCard() {
-        int randomShapeIdx;
-        int randomValueIdx;
-        boolean isSelected = false;
-        do {
-            randomShapeIdx = (int) Math.floor(Math.random() * 4);
-            randomValueIdx = (int) Math.floor(Math.random() * 13);
-            isSelected = checkIsSelected(randomShapeIdx, randomValueIdx);
-        } while (isSelected);
-
-        cardIsSelected[randomShapeIdx][randomValueIdx] = true;
-        CardShape randomShape = CardShape.values()[randomShapeIdx];
-        String randomeDelimeter = getDelimeterFromIdx(randomValueIdx);
-        int randomValue = getCardValueFromIdx(randomValueIdx);
-        return new Card(randomShape, randomeDelimeter, randomValue);
+    public CardPack() {
+        initCardPack();
+        shuffleCardPack();
     }
 
-    public boolean checkIsSelected(int shapeIdx, int valueIdx) {
-        return cardIsSelected[shapeIdx][valueIdx];
-    }
-
-    public static String getDelimeterFromIdx(int idx) {
-        idx++;
-        if (idx == 1) {
-            return "A";
-        } else if (idx == 11) {
-            return "J";
-        } else if (idx == 12) {
-            return "Q";
-        } else if (idx == 13) {
-            return "K";
-        } else {
-            return Integer.toString(idx);
+    private void initCardPack() {
+        for (int i = 0; i < CARD_SHAPE_COUNT; i++) {
+            for (int j = 0; j < CARD_VALUE_COUNT; j++) {
+                cards.add(new Card(CardShape.values()[i], CardGrade.values()[j]));
+            }
         }
     }
 
-    public static int getCardValueFromIdx(int idx) {
-        idx++;
-        if (idx >= 11) return 10;
-        else return idx;
+    private void shuffleCardPack() {
+            Collections.shuffle(cards);
+    }
+
+    public Card getRandomCard() {
+        selectedIndex++;
+        return cards.get(selectedIndex);
     }
 }

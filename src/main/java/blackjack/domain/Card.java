@@ -1,37 +1,34 @@
 package blackjack.domain;
 
-import java.util.Objects;
-
 public class Card {
     CardShape shape;
-    String delimeter;
-    int value;
+    CardGrade grade;
 
-    public Card(CardShape shape, String delimeter, int value) {
+    public Card(CardShape shape, CardGrade grade) {
         this.shape = shape;
-        this.delimeter = delimeter;
-        this.value = value;
+        this.grade = grade;
     }
 
     public CardShape getShape() { return shape; }
 
-    public String getDelimeter() { return delimeter; }
+    public String getDelimiter() { return grade.getDelimiter(); }
 
-    public int getValue() { return value; }
+    public int getGrade() {
+        return grade.getValue();
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return value == card.value && shape == card.shape && delimeter.equals(card.delimeter);
+        return (grade == card.grade && shape == card.shape);
     }
 
     public int returnOneIfAceElseReturnZero() {
-        if (value == 1) {
+        if (grade.getDelimiter().equals("A"))
             return 1;
-        } else {
+        else
             return 0;
-        }
     }
 }

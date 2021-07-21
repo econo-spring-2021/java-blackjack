@@ -44,7 +44,7 @@ public class OutputView {
     public static List<String> parseCardListToStringList(List<Card> cards) {
         List<String> cardStrings = new ArrayList<>();
         for (Card card : cards) {
-            cardStrings.add(card.getDelimeter() + card.getShape().getKoreanName());
+            cardStrings.add(card.getDelimiter() + card.getShape().getKoreanName());
         }
 
         return cardStrings;

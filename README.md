@@ -16,3 +16,14 @@
 * [*] 딜러의 16 규칙에 의한 카드 분배
 * [*] 숫자 합산 및 출력
 * [*] 결과 판단 및 출력
+
+# feedback
+* [*] 대소문자 구분 git 설정
+* [*] user, dealer 의 상속 구조
+* [*] getMoreCardTillUnableOrDeny 메소드 Game의 책임으로
+* [*] 부족한 Testcode 추가
+* [*] 카드 뽑기 로직 수정 (처음 섞고, 한 장씩 뽑도록)
+* [*] 카드의 값 모양(delimiter) enum 으로 관리
+* [ ] returnOneIfDrawerElseReturnZero() in UserInfoDto, boolean 반환으로
+  * [ ] returOne~ElseReturnZero 메소드들 반환값 boolean
+* [ ] Dto (UserInfoDto) 에서 로직 제거

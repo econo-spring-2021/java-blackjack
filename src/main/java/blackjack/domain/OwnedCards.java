@@ -2,7 +2,6 @@ package blackjack.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class OwnedCards {
     List<Card> cards;
@@ -47,7 +46,7 @@ public class OwnedCards {
     public int getCardsValueSum() {
         int sum = 0;
         for (Card card : cards) {
-            sum += card.getValue();
+            sum += card.getGrade();
         }
 
         return sum;
