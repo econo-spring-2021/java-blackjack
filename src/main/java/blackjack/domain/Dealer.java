@@ -8,7 +8,10 @@ import java.util.List;
 public class Dealer extends Player{
     public static final String DEALER_NAME = "딜러";
     public static final int DEALER_REVEAL_CARD_COUNT = 1;
-    public static final int DEALER_ONEMORE_CARD_STANDARD_VALUE = 16;
+    public static final int DEALER_MORE_CARD_COUNT = 1;
+    public static final int DEALER_MORE_CARD_STANDARD_VALUE = 16;
+
+    private int gotMoreCardCount = 0;
 
     public Dealer()
     {
@@ -30,19 +33,18 @@ public class Dealer extends Player{
         return new DealerInfoDto(name, revealCards);
     }
 
+    public void addCard(Card card) {
+        gotMoreCardCount++;
+
+        super.addCard(card);
+    }
+
     public boolean isPossibleToGetMoreCard() {
-        if (ownedCards.getCardsValueSum() <= DEALER_ONEMORE_CARD_STANDARD_VALUE) {
+        if (gotMoreCardCount < DEALER_MORE_CARD_COUNT &&
+                ownedCards.getCardsValueSum() <= DEALER_MORE_CARD_STANDARD_VALUE) {
             return true;
         }
 
         return false;
     }
-
-//    public void getOneMoreCardIfPossible(CardPack cardPack) {
-//        if (ownedCards.getCardsValueSum() <= DEALER_ONEMORE_CARD_STANDARD_VALUE) {
-//            OutputView.announcingDealerOneMoreCard(name);
-//
-//            addCard(cardPack.getRandomCard());
-//        }
-//    }
 }

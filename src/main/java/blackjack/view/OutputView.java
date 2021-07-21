@@ -54,9 +54,9 @@ public class OutputView {
         System.out.println(username + ASKING_GET_MORECARD_MESSAGE);
     }
 
-    public static void announcingDealerOneMoreCard(String dealerName) {
+    public static void announcingDealerOneMoreCard() {
         System.out.println(SPACE);
-        System.out.println(dealerName + DEALER_ONEMORE_CARD_MESSAGE);
+        System.out.println(Dealer.DEALER_NAME + DEALER_ONEMORE_CARD_MESSAGE);
     }
 
     public static void printGameResult(DealerInfoDto dealerInfoDto, List<UserInfoDto> userInfoDtos) {
