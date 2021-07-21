@@ -4,48 +4,35 @@ import blackjack.view.InputView;
 import blackjack.view.OutputView;
 
 
-public class User {
+public class User extends Player{
     public static final int USER_LIMIT_CARD_VALUE = 21;
 
-    String name;
-    OwnedCards ownedCards;
-
     public User(String name) {
+        super();
         this.name = name;
-        this.ownedCards = new OwnedCards();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public OwnedCards getOwnedCards() {
-        return ownedCards;
-    }
-
-    public void addCard(Card card) {
-        ownedCards.addCard(card);
-    }
-
-    public void getMoreCardTillUnableOrDeny(CardPack cardPack) {
-        while (isPossibleToGetMoreCard() && askPlayerWillGetMoreCard()) {
-            addCard(cardPack.getRandomCard());
-
-            OutputView.printPlayersOwnedCards(name, ownedCards);
-        }
-    }
-
-    public boolean askPlayerWillGetMoreCard() {
-        OutputView.askGetMoreCard(name);
-        String answer = InputView.getYesOrNo();
-        if (answer.equals("y")) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public boolean isPossibleToGetMoreCard() {
         return ownedCards.getCardsValueSum() <= USER_LIMIT_CARD_VALUE;
     }
+
+//    public void getMoreCardTillUnableOrDeny(CardPack cardPack) {
+//        while (isPossibleToGetMoreCard() && askPlayerWillGetMoreCard()) {
+//            addCard(cardPack.getRandomCard());
+//
+//            OutputView.printPlayersOwnedCards(name, ownedCards);
+//        }
+//    }
+//
+//    public boolean askPlayerWillGetMoreCard() {
+//        OutputView.askGetMoreCard(name);
+//        String answer = InputView.getYesOrNo();
+//        if (answer.equals("y")) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
+
 }

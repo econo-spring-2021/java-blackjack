@@ -5,21 +5,17 @@ import blackjack.view.OutputView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dealer {
+public class Dealer extends Player{
     public static final String DEALER_NAME = "딜러";
     public static final int DEALER_REVEAL_CARD_COUNT = 1;
     public static final int DEALER_ONEMORE_CARD_STANDARD_VALUE = 16;
 
-    String name = DEALER_NAME;
-    OwnedCards ownedCards;
-
-    public Dealer() {
-        this.ownedCards = new OwnedCards();
+    public Dealer()
+    {
+        super();
+        this.name = DEALER_NAME;
     }
 
-    public OwnedCards getOwnedCards() {
-        return ownedCards;
-    }
 
     public DealerInfoDto getDealerInfoDto() {
         return new DealerInfoDto(name, ownedCards);
@@ -34,15 +30,19 @@ public class Dealer {
         return new DealerInfoDto(name, revealCards);
     }
 
-    public void addCard(Card card) {
-        ownedCards.addCard(card);
-    }
-
-    public void getOneMoreCardIfPossible(CardPack cardPack) {
+    public boolean isPossibleToGetMoreCard() {
         if (ownedCards.getCardsValueSum() <= DEALER_ONEMORE_CARD_STANDARD_VALUE) {
-            OutputView.announcingDealerOneMoreCard(name);
-
-            addCard(cardPack.getRandomCard());
+            return true;
         }
+
+        return false;
     }
+
+//    public void getOneMoreCardIfPossible(CardPack cardPack) {
+//        if (ownedCards.getCardsValueSum() <= DEALER_ONEMORE_CARD_STANDARD_VALUE) {
+//            OutputView.announcingDealerOneMoreCard(name);
+//
+//            addCard(cardPack.getRandomCard());
+//        }
+//    }
 }
