@@ -13,6 +13,8 @@ public class UserInfoDto extends PlayerInfoDto {
 
     public boolean getIsWinner() { return isWinner; }
 
+
+
     public void judgeResult(int opponentScore) {
         int score = ownedCards.getScore();
         if (opponentScore == score) {

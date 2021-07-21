@@ -22,7 +22,7 @@ public class GameController {
         generatePerson();
 
         game.distributeInitCard();
-        revealInitCard(game.getUserInfoDtos(), game.getDealerRevealCards());
+        revealInitCard(game.getUserInfoDtos(), game.getDealerRevealInfoDto());
 
         game.playersGetMoreCard();
 

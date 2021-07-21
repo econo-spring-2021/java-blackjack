@@ -10,19 +10,36 @@ import java.util.stream.Collectors;
 public class Game {
     public static final int INIT_CARD_COUNT = 2;
 
-    CardPack cardPack = new CardPack();
-    List<User> users = new ArrayList<>();
-    Dealer dealer = new Dealer();
+    CardPack cardPack;
+    List<User> users;
+    Dealer dealer;
 
-    //
+    public Game() {
+        this.cardPack = new CardPack();
+        this.users = new ArrayList<>();
+        this.dealer = new Dealer();
+    }
+
+    public Game(List<User> users) {
+        this.cardPack = new CardPack();
+        this.users = users;
+        this.dealer = new Dealer();
+    }
+
+    public Game(Dealer dealer) {
+        this.cardPack = new CardPack();
+        this.users = new ArrayList<>();
+        this.dealer = dealer;
+    }
+
     public List<User> getUsers() {
-        return this.users;
+        return users;
     }
 
     public Dealer getDealer() {
-        return this.dealer;
+        return dealer;
     }
-    //
+
 
     public List<UserInfoDto> getUserInfoDtos() {
         return users.stream().map(user -> new UserInfoDto(user.getName(), user.getOwnedCards()))
@@ -33,7 +50,7 @@ public class Game {
         return dealer.getDealerInfoDto();
     }
 
-    public DealerInfoDto getDealerRevealCards() {
+    public DealerInfoDto getDealerRevealInfoDto() {
         return dealer.getDealerRevealInfoDto();
     }
 
@@ -48,22 +65,22 @@ public class Game {
         giveInitCardToDealer();
     }
 
-    public void giveInitCardToUser(int userIdx) {
+    private void giveInitCardToUser(int userIdx) {
         for (int i = 0; i < INIT_CARD_COUNT; i++) {
             giveCardToUser(userIdx, cardPack.getRandomCard());
         }
     }
 
-    public void giveCardToUser(int userIdx, Card card) {
+    private void giveCardToUser(int userIdx, Card card) {
         users.get(userIdx).addCard(card);
     }
 
-    public void giveCardToUser(User user, Card card) {
+    private void giveCardToUser(User user, Card card) {
         user.addCard(card);
     }
 
 
-    public void giveInitCardToDealer() {
+    private void giveInitCardToDealer() {
         for (int i = 0; i < INIT_CARD_COUNT; i++) {
             giveCardToDealer(cardPack.getRandomCard());
         }

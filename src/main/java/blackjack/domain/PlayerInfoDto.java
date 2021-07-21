@@ -1,6 +1,7 @@
 package blackjack.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PlayerInfoDto {
 
@@ -26,5 +27,25 @@ public class PlayerInfoDto {
 
     public OwnedCards getOwnedCards() {
         return ownedCards;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        Player player = (Player) o;
+
+        if (!name.equals(player.name)) {
+            return false;
+        }
+
+        List<Card> thisOwnedCards = ownedCards.getCards();
+        List<Card> thatOwnedCards = player.getOwnedCards().getCards();
+        for (int i = 0; i < thisOwnedCards.size(); i++) {
+            if (!thisOwnedCards.get(i).equals(thatOwnedCards.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
