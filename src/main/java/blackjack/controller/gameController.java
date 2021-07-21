@@ -1,6 +1,9 @@
 package blackjack.controller;
 
 import blackjack.domain.*;
+import blackjack.domain.dto.DealerInfoDto;
+import blackjack.domain.dto.PlayerInfoDto;
+import blackjack.domain.dto.UserInfoDto;
 import blackjack.view.InputView;
 import blackjack.view.OutputView;
 
@@ -62,40 +65,12 @@ public class GameController {
     }
 
     public void showGameResult() {
-        DealerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        game.judgeUsersResult();
         List<UserInfoDto> userInfoDtos = game.getUserInfoDtos();
 
-        int dealerScore = dealerInfoDto.getOwnedCards().getScore();
-        judgeUserResult(userInfoDtos, dealerScore);
+        game.judgeDealerResult(userInfoDtos);
+        DealerInfoDto dealerInfoDto = game.getDealerInfoDto();
 
-        int dealerWinCount = calculateDealerWinCount(userInfoDtos);
-        int dealerDrawCount = calculateDealerDrawCount(userInfoDtos);
-        int dealerLostCount = userInfoDtos.size() - dealerWinCount - dealerDrawCount;
-        dealerInfoDto.setGameResult(dealerWinCount, dealerLostCount, dealerDrawCount);
         OutputView.printGameResult(dealerInfoDto, userInfoDtos);
-    }
-
-    private void judgeUserResult(List<UserInfoDto> userInfoDtos, int dealerScore) {
-        for (UserInfoDto userInfoDto : userInfoDtos) {
-            userInfoDto.judgeResult(dealerScore);
-        }
-    }
-
-    private int calculateDealerDrawCount(List<UserInfoDto> userInfoDtos) {
-        int drawCount = 0;
-        for (UserInfoDto userInfoDto : userInfoDtos) {
-            drawCount += userInfoDto.returnOneIfDrawerElseReturnZero();
-        }
-
-        return drawCount;
-    }
-
-    private int calculateDealerWinCount(List<UserInfoDto> userInfoDtos) {
-        int winCount = 0;
-        for (UserInfoDto userInfoDto : userInfoDtos) {
-            winCount += userInfoDto.returnOneIfWinnerElseReturnZero();
-        }
-
-        return winCount;
     }
 }

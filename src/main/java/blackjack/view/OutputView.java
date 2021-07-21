@@ -1,10 +1,11 @@
 package blackjack.view;
 
 import blackjack.domain.*;
+import blackjack.domain.dto.DealerInfoDto;
+import blackjack.domain.dto.UserInfoDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OutputView {
 

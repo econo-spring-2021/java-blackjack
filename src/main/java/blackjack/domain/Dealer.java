@@ -1,6 +1,7 @@
 package blackjack.domain;
 
-import blackjack.view.OutputView;
+import blackjack.domain.dto.DealerInfoDto;
+import blackjack.domain.dto.UserInfoDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,9 @@ public class Dealer extends Player{
     public static final int DEALER_MORE_CARD_STANDARD_VALUE = 16;
 
     private int gotMoreCardCount = 0;
+    private int winCount;
+    private int drawCount;
+    private int lostCount;
 
     public Dealer()
     {
@@ -20,11 +24,11 @@ public class Dealer extends Player{
     }
 
 
-    public DealerInfoDto getDealerInfoDto() {
-        return new DealerInfoDto(name, ownedCards);
+    public DealerInfoDto toDto() {
+        return new DealerInfoDto(name, ownedCards, winCount, drawCount, lostCount);
     }
 
-    public DealerInfoDto getDealerRevealInfoDto() {
+    public DealerInfoDto toRevealDto() {
         List<Card> revealCards = new ArrayList<>();
         for (int i = 0; i < DEALER_REVEAL_CARD_COUNT; i++) {
             revealCards.add(ownedCards.getCard(i));
@@ -46,5 +50,29 @@ public class Dealer extends Player{
         }
 
         return false;
+    }
+
+    public void judgeDealerResult(List<UserInfoDto> userInfoDtos) {
+        calculateDealerLoseCount(userInfoDtos);
+        calculateDealerDrawCount(userInfoDtos);
+        winCount = userInfoDtos.size() - lostCount - drawCount;
+    }
+
+    private void calculateDealerDrawCount(List<UserInfoDto> userInfoDtos) {
+        int drawCount = 0;
+        for (UserInfoDto userInfoDto : userInfoDtos) {
+            drawCount += userInfoDto.returnOneIfDrawerElseReturnZero();
+        }
+
+        this.drawCount = drawCount;
+    }
+
+    private void calculateDealerLoseCount(List<UserInfoDto> userInfoDtos) {
+        int lostCount = 0;
+        for (UserInfoDto userInfoDto : userInfoDtos) {
+            lostCount += userInfoDto.returnOneIfWinnerElseReturnZero();
+        }
+
+        this.lostCount = lostCount;
     }
 }

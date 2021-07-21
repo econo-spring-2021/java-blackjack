@@ -1,8 +1,10 @@
-package blackjack.domain;
+package blackjack.domain.dto;
+
+import blackjack.domain.Card;
+import blackjack.domain.OwnedCards;
+import blackjack.domain.Player;
 
 import java.util.List;
-import java.util.Objects;
-
 public class PlayerInfoDto {
 
     String name;
@@ -34,7 +36,7 @@ public class PlayerInfoDto {
         if (o == null) return false;
         Player player = (Player) o;
 
-        if (!name.equals(player.name)) {
+        if (!name.equals(player.getName())) {
             return false;
         }
 

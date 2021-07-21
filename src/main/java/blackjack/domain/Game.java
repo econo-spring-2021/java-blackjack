@@ -1,5 +1,7 @@
 package blackjack.domain;
 
+import blackjack.domain.dto.DealerInfoDto;
+import blackjack.domain.dto.UserInfoDto;
 import blackjack.view.InputView;
 import blackjack.view.OutputView;
 
@@ -40,18 +42,18 @@ public class Game {
         return dealer;
     }
 
-
     public List<UserInfoDto> getUserInfoDtos() {
-        return users.stream().map(user -> new UserInfoDto(user.getName(), user.getOwnedCards()))
-                .collect(Collectors.toList());
+        return users.stream().map(user ->
+                user.toDto()
+        ).collect(Collectors.toList());
     }
 
     public DealerInfoDto getDealerInfoDto() {
-        return dealer.getDealerInfoDto();
+        return dealer.toDto();
     }
 
     public DealerInfoDto getDealerRevealInfoDto() {
-        return dealer.getDealerRevealInfoDto();
+        return dealer.toRevealDto();
     }
 
     public void addUser(User user) {
@@ -86,7 +88,7 @@ public class Game {
         }
     }
 
-    public void giveCardToDealer(Card card) {
+    private void giveCardToDealer(Card card) {
         dealer.addCard(card);
     }
 
@@ -133,5 +135,16 @@ public class Game {
         }
 
         return false;
+    }
+
+    public void judgeUsersResult() {
+        int dealerScore = dealer.getOwnedCards().getScore();
+        for (User user : users) {
+            user.judgeResult(dealerScore);
+        }
+    }
+
+    public void judgeDealerResult(List<UserInfoDto> userInfoDtos) {
+        dealer.judgeDealerResult(userInfoDtos);
     }
 }

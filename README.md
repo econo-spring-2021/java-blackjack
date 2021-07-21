@@ -26,4 +26,4 @@
 * [*] 카드의 값 모양(delimiter) enum 으로 관리
 * [ ] returnOneIfDrawerElseReturnZero() in UserInfoDto, boolean 반환으로
   * [ ] returOne~ElseReturnZero 메소드들 반환값 boolean
-* [ ] Dto (UserInfoDto) 에서 로직 제거
+* [*] Dto (UserInfoDto) 에서 로직 제거

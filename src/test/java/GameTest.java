@@ -1,5 +1,6 @@
 import blackjack.controller.GameController;
 import blackjack.domain.*;
+import blackjack.domain.dto.DealerInfoDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

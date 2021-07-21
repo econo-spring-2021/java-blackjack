@@ -1,28 +1,21 @@
-package blackjack.domain;
+package blackjack.domain.dto;
+
+import blackjack.domain.OwnedCards;
 
 public class UserInfoDto extends PlayerInfoDto {
 
-    boolean isDrawer = false;
-    boolean isWinner = false;
+    boolean isDrawer;
+    boolean isWinner;
 
-    public UserInfoDto(String name, OwnedCards ownedCards) {
+    public UserInfoDto(String name, OwnedCards ownedCards, boolean isDrawer, boolean isWinner) {
         super(name, ownedCards);
+        this.isDrawer = isDrawer;
+        this.isWinner = isWinner;
     }
 
     public boolean getIsDrawer() { return isDrawer; }
 
     public boolean getIsWinner() { return isWinner; }
-
-
-
-    public void judgeResult(int opponentScore) {
-        int score = ownedCards.getScore();
-        if (opponentScore == score) {
-            isDrawer = true;
-        } else if (opponentScore < score) {
-            isWinner = true;
-        }
-    }
 
     public int returnOneIfDrawerElseReturnZero() {
         if(isDrawer) {

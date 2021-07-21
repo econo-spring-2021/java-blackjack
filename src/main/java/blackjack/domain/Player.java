@@ -1,6 +1,6 @@
 package blackjack.domain;
 
-abstract class Player {
+public abstract class Player {
 
     String name;
     OwnedCards ownedCards;
