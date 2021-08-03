@@ -25,7 +25,7 @@ public class GameController {
         generatePerson();
 
         game.distributeInitCard();
-        revealInitCard(game.getUserInfoDtos(), game.getDealerRevealInfoDto());
+        revealInitialCards(game.getUserInfoDtos(), game.getDealerRevealInfoDto());
 
         game.playersGetMoreCard();
 
@@ -42,7 +42,7 @@ public class GameController {
         }
     }
 
-    public void revealInitCard(List<UserInfoDto> userInfoDtos, DealerInfoDto dealerRevealInfoDto) {
+    public void revealInitialCards(List<UserInfoDto> userInfoDtos, DealerInfoDto dealerRevealInfoDto) {
         OutputView.announceDistribuyingInitCard(dealerRevealInfoDto.getName(),
                 userInfoDtos.stream().map(dto -> dto.getName()).collect(Collectors.toList()));
 

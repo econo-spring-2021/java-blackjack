@@ -27,3 +27,7 @@
 * [x] returnOneIfDrawerElseReturnZero() in UserInfoDto, boolean 반환으로
   * [x] returOne~ElseReturnZero 메소드들 반환값 boolean
 * [x] Dto (UserInfoDto) 에서 로직 제거
+* [x] last more feedback
+
+# second week features
+* [ ] ..
