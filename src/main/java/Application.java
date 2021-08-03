@@ -11,11 +11,11 @@ public class Application {
         Players players = new Players(Game.setPlayerName(InputView.playerNameView()));
         Cards cards = new Cards(Cards.setCards());
 
-        Game.giveTwoCards(players, cards);
-        Game.askPlayersOneMoreCard(players, cards);
-        Game.getDealerOneMoreCard(players, cards);
+        players.giveTwoCards(cards);
+        players.askPlayersOneMoreCard(cards);
+        players.getDealerOneMoreCard(cards);
 
-        OutputView.playersResultView(players);
-        Game.setWinOrLose(players);
+        players.showPlayersResults();
+        players.setWinOrLose();
     }
 }

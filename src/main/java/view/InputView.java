@@ -7,6 +7,7 @@ import domain.Players;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class InputView {
     public static final String PLAYER_NAME_VIEW = "게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)";
@@ -24,12 +25,12 @@ public class InputView {
         return br.readLine();
     }
 
-    public static void giveTwoCardsView(Players players) {
+    public static void giveTwoCardsView(ArrayList<Player> players) {
         String view = DEALER;
         view += WITH;
-        for (int i = 1; i < players.getPlayers().size(); i++) {
-            view += players.getPlayers().get(i).getName();
-            if (i != players.getPlayers().size() - 1) {
+        for (int i = 1; i < players.size(); i++) {
+            view += players.get(i).getName();
+            if (i != players.size() - 1) {
                 view += COMMA;
             }
         }
@@ -38,10 +39,10 @@ public class InputView {
         System.out.println(view);
     }
 
-    public static void playersTwoCardsView(Players players) {
-        System.out.println(DEALER + ": " + players.getPlayers().get(0).getCards().getCards().get(0).getCardName());
-        for (int i = 1; i < players.getPlayers().size(); i++) {
-            Player player = players.getPlayers().get(i);
+    public static void playersTwoCardsView(ArrayList<Player> players) {
+        System.out.println(DEALER + ": " + players.get(0).getCards().getCards().get(0).getCardName());
+        for (int i = 1; i < players.size(); i++) {
+            Player player = players.get(i);
             StringBuilder view = new StringBuilder();
             view.append(player.getName() + CARD).append(player.getCards().getCards().get(0).getCardName()).append(COMMA).append(player.getCards().getCards().get(1).getCardName());
             System.out.println(view.toString());
@@ -56,7 +57,7 @@ public class InputView {
         return ask;
     }
 
-    public static void dealerOneMoreCardView(){
+    public static void dealerOneMoreCardView() {
         System.out.println(DEALER_ONE_MORE_CARD_VIEW);
         System.out.println();
     }

@@ -3,6 +3,8 @@ package view;
 import domain.Player;
 import domain.Players;
 
+import java.util.ArrayList;
+
 public class OutputView {
     public static final String CARD = "카드: ";
     public static final String RESULT = " - 결과: ";
@@ -24,9 +26,9 @@ public class OutputView {
         System.out.println(view.toString());
     }
 
-    public static void playersResultView(Players players) {
-        for (int i = 0; i < players.getPlayers().size(); i++) {
-            onePlayerResultView(players.getPlayers().get(i));
+    public static void playersResultView(ArrayList<Player> players) {
+        for (int i = 0; i < players.size(); i++) {
+            onePlayerResultView(players.get(i));
         }
         System.out.println();
     }
@@ -44,12 +46,12 @@ public class OutputView {
         System.out.println(view.toString());
     }
 
-    public static void winOrLoseResultView(Players players, int dealerWinCount) {
+    public static void winOrLoseResultView(ArrayList<Player> players, int dealerWinCount) {
         System.out.println(WIN_OR_LOSE_RESULT_VIEW);
         StringBuilder sb = new StringBuilder();
-        sb.append(players.getPlayers().get(0).getName()).append(COLON).append(dealerWinCount).append(WIN).append(players.getPlayers().size() - 1 - dealerWinCount).append(LOSE).append("\n");
-        for (int i = 1; i < players.getPlayers().size(); i++) {
-            sb.append(players.getPlayers().get(i).getName()).append(COLON).append(players.getPlayers().get(i).getResult()).append("\n");
+        sb.append(players.get(0).getName()).append(COLON).append(dealerWinCount).append(WIN).append(players.size() - 1 - dealerWinCount).append(LOSE).append("\n");
+        for (int i = 1; i < players.size(); i++) {
+            sb.append(players.get(i).getName()).append(COLON).append(players.get(i).getResult()).append("\n");
         }
         System.out.println(sb.toString());
     }
