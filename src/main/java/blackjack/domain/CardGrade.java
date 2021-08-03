@@ -18,6 +18,9 @@ public enum CardGrade {
     private String delimiter;
     private int value;
 
+    public static final int ACE_MIN_GRADE = 1;
+    public static final int ACE_MAX_GRADE = 11;
+
     CardGrade(String delimiter, int value) {
         this.delimiter = delimiter;
         this.value = value;

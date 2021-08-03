@@ -14,7 +14,10 @@ public class OwnedCards {
         this.cards = cards;
     }
 
-    public Card getCard(int index) { return cards.get(index); }
+    public Card getCard(int index) {
+        return cards.get(index);
+    }
+
     public List<Card> getCards() {
         return cards;
     }
@@ -31,10 +34,14 @@ public class OwnedCards {
         cards.add(card);
     }
 
+    public boolean isBlackjack() {
+        return getScore() == User.USER_LIMIT_CARD_VALUE;
+    }
+
     public int getScore() {
         int score = getCardsValueSum();
 
-        score += getAddtitionAceScore(score);
+        score += getAdditionalAceScore(score);
 
         if (score > User.USER_LIMIT_CARD_VALUE) {
             return 0;
@@ -52,17 +59,17 @@ public class OwnedCards {
         return sum;
     }
 
-    public int getAddtitionAceScore(int currentScore) {
+    public int getAdditionalAceScore(int currentScore) {
         int remainingValueUpToMax = User.USER_LIMIT_CARD_VALUE - currentScore;
         if (remainingValueUpToMax <= 0) {
             return 0;
         }
 
-        int possibleCointToAdd = remainingValueUpToMax / 9;
-        int additionAceCount = Math.min(possibleCointToAdd, getAceCount());
-        int additionAceValue = additionAceCount * 9;
+        int additionalAceGrade = CardGrade.ACE_MAX_GRADE - CardGrade.ACE_MIN_GRADE;
+        int possiblePointToAdd = remainingValueUpToMax - additionalAceGrade;
+        int additionalAceCount = Math.min(possiblePointToAdd, getAceCount());
 
-        return additionAceValue;
+        return additionalAceCount * additionalAceGrade;
     }
 
     public int getAceCount() {

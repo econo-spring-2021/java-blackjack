@@ -14,6 +14,15 @@ class UserTest {
     }
 
     @Test
+    @DisplayName("블랙잭 판정이 올바르게 되는가?")
+    void test_checkUserBlackjack() {
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+
+        Assertions.assertTrue(user.getIsBlackjack());
+    }
+
+    @Test
     @DisplayName("카드가 5/5 인 경우, 유저의 카드 뽑는 판정이 옳은가")
     void test_isPossibleToGetMoreCard_with5and5Card() {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.FIVE));

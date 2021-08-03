@@ -37,6 +37,15 @@ public class DealerTest {
     }
 
     @Test
+    @DisplayName("블랙잭 판정이 올바르게 되는가?")
+    void test_checkUserBlackjack() {
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+
+        Assertions.assertTrue(dealer.getIsBlackjack());
+    }
+
+    @Test
     @DisplayName("딜러의 게임 전적을 올바르게 판단하는지?")
     void test_judgeDealerResult() {
         User a = new User("a");

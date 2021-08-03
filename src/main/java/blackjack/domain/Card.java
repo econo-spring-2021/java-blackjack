@@ -26,9 +26,6 @@ public class Card {
     }
 
     public boolean isAce() {
-        if (grade.getDelimiter().equals("A"))
-            return true;
-
-        return false;
+        return grade.getDelimiter().equals("A");
     }
 }

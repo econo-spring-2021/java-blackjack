@@ -76,6 +76,13 @@ public class Game {
         giveInitCardToDealer();
     }
 
+    public void judgePlayerBlackjack() {
+        for (User user : users) {
+            user.judgeBlackjack();
+        }
+        dealer.judgeBlackjack();
+    }
+
     private void giveInitCardToUser(int userIdx) {
         for (int i = 0; i < INIT_CARD_COUNT; i++) {
             giveCardToUser(userIdx, cardPack.getRandomCard());

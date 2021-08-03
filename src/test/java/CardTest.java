@@ -74,7 +74,7 @@ class CardTest {
         ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[0]));
         ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[0]));
 
-        int maxScore = ownedCards.getAddtitionAceScore(score);
+        int maxScore = ownedCards.getAdditionalAceScore(score);
 
         Assertions.assertEquals(9, maxScore);
     }
@@ -88,7 +88,7 @@ class CardTest {
         ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[9]));
         ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[1]));
 
-        int maxScore = ownedCards.getAddtitionAceScore(score);
+        int maxScore = ownedCards.getAdditionalAceScore(score);
 
         Assertions.assertEquals(0, maxScore);
     }
