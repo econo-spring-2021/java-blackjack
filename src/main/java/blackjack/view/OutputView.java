@@ -11,6 +11,7 @@ public class OutputView {
 
     private static final String SPACE = " ";
     private static final String ASKING_USER_NAMES_MESSAGE = "게임에 참여할 사람의 이름을 입력하세요. (쉼표 기준으로 분리)";
+    private static final String ASKING_USER_BET_MESSAGE = "%s의 배팅 금액은?\n";
     private static final String DISTRIBUTING_INIT_CARD_MESSAGE = "%s와 %s에게 각각 %d장의 카드를 나누었습니다.\n";
     private static final String ASKING_GET_MORECARD_MESSAGE = "는 한장의 카드를 더 받겠습니까? (예는 y, 아니요는 n)";
     private static final String DEALER_ONEMORE_CARD_MESSAGE = "는 16이하라 한장의 카드를 더 받았습니다.";
@@ -20,6 +21,10 @@ public class OutputView {
 
     public static void askUserNames() {
         System.out.println(ASKING_USER_NAMES_MESSAGE);
+    }
+
+    public static void askUserBet(String name) {
+        System.out.printf(ASKING_USER_BET_MESSAGE, name);
     }
 
     public static void announceDistribuyingInitCard(String dealerName, List<String> usersName) {

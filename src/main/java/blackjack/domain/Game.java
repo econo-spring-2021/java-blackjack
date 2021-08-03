@@ -60,6 +60,15 @@ public class Game {
         users.add(user);
     }
 
+    public void getBetFromUsers() {
+        for (User user : users) {
+            OutputView.askUserBet(user.getName());
+
+            int bet = InputView.getUserBet();
+            user.setBet(bet);
+        }
+    }
+
     public void distributeInitCard() {
         for (int userIdx = 0; userIdx < users.size(); userIdx++) {
             giveInitCardToUser(userIdx);

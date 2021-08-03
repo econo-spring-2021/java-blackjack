@@ -24,6 +24,8 @@ public class GameController {
     public void play() {
         generatePerson();
 
+        game.getBetFromUsers();
+
         game.distributeInitCard();
         revealInitialCards(game.getUserInfoDtos(), game.getDealerRevealInfoDto());
 

@@ -4,6 +4,7 @@ public abstract class Player {
 
     String name;
     OwnedCards ownedCards;
+    int money;
 
     public Player() {
         this.ownedCards = new OwnedCards();

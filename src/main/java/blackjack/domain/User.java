@@ -8,6 +8,7 @@ import blackjack.view.OutputView;
 public class User extends Player{
     public static final int USER_LIMIT_CARD_VALUE = 21;
 
+    int bet;
     boolean isDrawer = false;
     boolean isWinner = false;
 
@@ -18,6 +19,10 @@ public class User extends Player{
 
     public UserInfoDto toDto() {
         return new UserInfoDto(name, ownedCards, isDrawer, isWinner);
+    }
+
+    public void setBet(int bet) {
+        this.bet = bet;
     }
 
     public boolean isPossibleToGetMoreCard() {

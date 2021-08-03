@@ -33,6 +33,7 @@ public class GameTest {
         Assertions.assertEquals(2, dealer.getOwnedCards().getCards().size());
     }
 
+
     @Test
     @DisplayName("UserInfoDto 리스트가 올바르게 얻어지는지?")
     void test_getUserInfoDtos() {
