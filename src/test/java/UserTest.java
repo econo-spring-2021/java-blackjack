@@ -18,6 +18,7 @@ class UserTest {
     void test_checkUserBlackjack() {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
         user.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        user.judgeBlackjack();
 
         Assertions.assertTrue(user.getIsBlackjack());
     }

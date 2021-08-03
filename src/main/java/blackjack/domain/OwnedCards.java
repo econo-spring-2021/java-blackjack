@@ -66,7 +66,7 @@ public class OwnedCards {
         }
 
         int additionalAceGrade = CardGrade.ACE_MAX_GRADE - CardGrade.ACE_MIN_GRADE;
-        int possiblePointToAdd = remainingValueUpToMax - additionalAceGrade;
+        int possiblePointToAdd = remainingValueUpToMax / additionalAceGrade;
         int additionalAceCount = Math.min(possiblePointToAdd, getAceCount());
 
         return additionalAceCount * additionalAceGrade;

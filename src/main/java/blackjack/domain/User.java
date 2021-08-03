@@ -9,8 +9,8 @@ public class User extends Player{
     public static final int USER_LIMIT_CARD_VALUE = 21;
 
     int bet;
-    boolean isDrawer = false;
-    boolean isWinner = false;
+    boolean isDrawer;
+    boolean isWinner;
 
     public User(String name) {
         super();

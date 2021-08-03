@@ -41,6 +41,7 @@ public class DealerTest {
     void test_checkUserBlackjack() {
         dealer.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
         dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        dealer.judgeBlackjack();
 
         Assertions.assertTrue(dealer.getIsBlackjack());
     }
