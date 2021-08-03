@@ -13,9 +13,9 @@ public class Dealer extends Player{
     public static final int DEALER_MORE_CARD_STANDARD_VALUE = 16;
 
     private int gotMoreCardCount = 0;
-    private int winCount;
-    private int drawCount;
-    private int lostCount;
+    private int winCount = 0;
+    private int drawCount = 0;
+    private int lostCount = 0;
 
     public Dealer()
     {
@@ -53,26 +53,28 @@ public class Dealer extends Player{
     }
 
     public void judgeDealerResult(List<UserInfoDto> userInfoDtos) {
-        calculateDealerLoseCount(userInfoDtos);
-        calculateDealerDrawCount(userInfoDtos);
-        winCount = userInfoDtos.size() - lostCount - drawCount;
+        setDealerLoseCount(userInfoDtos);
+        setDealerDrawCount(userInfoDtos);
+        setDealerWinCount(userInfoDtos.size());
     }
 
-    private void calculateDealerDrawCount(List<UserInfoDto> userInfoDtos) {
-        int drawCount = 0;
+    private void setDealerDrawCount(List<UserInfoDto> userInfoDtos) {
         for (UserInfoDto userInfoDto : userInfoDtos) {
-            drawCount += userInfoDto.returnOneIfDrawerElseReturnZero();
+            if (userInfoDto.getIsDrawer()) {
+                drawCount++;
+            }
         }
-
-        this.drawCount = drawCount;
     }
 
-    private void calculateDealerLoseCount(List<UserInfoDto> userInfoDtos) {
-        int lostCount = 0;
+    private void setDealerLoseCount(List<UserInfoDto> userInfoDtos) {
         for (UserInfoDto userInfoDto : userInfoDtos) {
-            lostCount += userInfoDto.returnOneIfWinnerElseReturnZero();
+            if (userInfoDto.getIsWinner()) {
+                lostCount++;
+            }
         }
+    }
 
-        this.lostCount = lostCount;
+    private void setDealerWinCount(int totalResultCount) {
+        winCount = totalResultCount - lostCount - drawCount;
     }
 }

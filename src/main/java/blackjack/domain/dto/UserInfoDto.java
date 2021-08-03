@@ -16,20 +16,4 @@ public class UserInfoDto extends PlayerInfoDto {
     public boolean getIsDrawer() { return isDrawer; }
 
     public boolean getIsWinner() { return isWinner; }
-
-    public int returnOneIfDrawerElseReturnZero() {
-        if(isDrawer) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    public int returnOneIfWinnerElseReturnZero() {
-        if(isWinner) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
 }

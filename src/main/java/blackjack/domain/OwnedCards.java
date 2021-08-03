@@ -68,7 +68,8 @@ public class OwnedCards {
     public int getAceCount() {
         int count = 0;
         for (Card card : cards) {
-            count += card.returnOneIfAceElseReturnZero();
+            if (card.isAce())
+                count++;
         }
 
         return count;
