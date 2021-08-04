@@ -38,7 +38,7 @@ public class DealerTest {
 
     @Test
     @DisplayName("블랙잭 판정이 올바르게 되는가?")
-    void test_checkUserBlackjack() {
+    void test_judgeDealerBlackjack() {
         dealer.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
         dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
         dealer.judgeBlackjack();
@@ -67,5 +67,15 @@ public class DealerTest {
 
         Assertions.assertEquals(1, dealerInfoDto.getDrawCount());
         Assertions.assertEquals(1, dealerInfoDto.getLoseCount());
+    }
+
+    @DisplayName("버스트 판정이 올바르게 되는가?")
+    void test_judegeDealerBurst() {
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        dealer.judgeBurst();
+
+        Assertions.assertTrue(dealer.getIsBurst());
     }
 }

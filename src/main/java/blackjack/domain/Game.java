@@ -153,6 +153,13 @@ public class Game {
         return false;
     }
 
+    public void judgePlayerBurst() {
+        for (User user : users) {
+            user.judgeBurst();
+        }
+        dealer.judgeBurst();
+    }
+
     public void judgeUsersResult() {
         int dealerScore = dealer.getOwnedCards().getScore();
         for (User user : users) {

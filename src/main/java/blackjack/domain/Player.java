@@ -6,6 +6,7 @@ public abstract class Player {
     String name;
     OwnedCards ownedCards;
     boolean isBlackjack;
+    boolean isBurst;
     int money;
 
     public Player() {
@@ -24,6 +25,8 @@ public abstract class Player {
         return isBlackjack;
     }
 
+    public boolean getIsBurst() { return isBurst; }
+
     public void addCard(Card card) {
         ownedCards.addCard(card);
     }
@@ -33,4 +36,9 @@ public abstract class Player {
     public void judgeBlackjack() {
         isBlackjack = ownedCards.isBlackjack();
     }
+
+    public void judgeBurst() {
+        isBurst = ownedCards.isBurst();
+    }
+
 }

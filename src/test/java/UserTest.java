@@ -15,7 +15,7 @@ class UserTest {
 
     @Test
     @DisplayName("블랙잭 판정이 올바르게 되는가?")
-    void test_checkUserBlackjack() {
+    void test_judgeUserBlackjack() {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
         user.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
         user.judgeBlackjack();
@@ -74,5 +74,15 @@ class UserTest {
         user.judgeResult(21);
 
         Assertions.assertEquals(true, user.toDto().getIsDrawer());
+    }
+
+    @DisplayName("버스트 판정이 올바르게 되는가?")
+    void test_judgeUserBurst() {
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        user.judgeBurst();
+
+        Assertions.assertTrue(user.getIsBurst());
     }
 }

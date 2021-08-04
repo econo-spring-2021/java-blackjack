@@ -23,16 +23,15 @@ public class GameController {
 
     public void play() {
         generatePerson();
-
         game.getBetFromUsers();
 
         game.distributeInitCard();
         game.judgePlayerBlackjack();
-
         revealInitialCards(game.getUserInfoDtos(), game.getDealerRevealInfoDto());
 
         game.playersGetMoreCard();
 
+        game.judgePlayerBurst();
         showPlayerCardState();
         showGameResult();
     }

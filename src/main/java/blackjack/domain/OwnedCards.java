@@ -38,6 +38,10 @@ public class OwnedCards {
         return getScore() == Player.Player_LIMIT_CARD_VALUE;
     }
 
+    public boolean isBurst() {
+        return getScore() > Player.Player_LIMIT_CARD_VALUE;
+    }
+
     public int getScore() {
         int score = getCardsValueSum();
 
