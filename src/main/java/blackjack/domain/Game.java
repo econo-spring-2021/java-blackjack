@@ -120,6 +120,7 @@ public class Game {
         while (isAbleToGetMoreCard(user)) {
 
             giveCardToUser(user, cardPack.getRandomCard());
+            OutputView.printPlayersOwnedCards(user.getName(), user.getOwnedCards());
         }
     }
 
