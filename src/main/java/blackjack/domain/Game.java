@@ -1,6 +1,6 @@
 package blackjack.domain;
 
-import blackjack.domain.dto.DealerInfoDto;
+import blackjack.domain.dto.PlayerInfoDto;
 import blackjack.domain.dto.UserInfoDto;
 import blackjack.view.InputView;
 import blackjack.view.OutputView;
@@ -48,11 +48,11 @@ public class Game {
         ).collect(Collectors.toList());
     }
 
-    public DealerInfoDto getDealerInfoDto() {
+    public PlayerInfoDto getDealerInfoDto() {
         return dealer.toDto();
     }
 
-    public DealerInfoDto getDealerRevealInfoDto() {
+    public PlayerInfoDto getDealerRevealInfoDto() {
         return dealer.toRevealDto();
     }
 
@@ -160,7 +160,7 @@ public class Game {
         dealer.judgeBurst();
     }
 
-    public void judgeUsersResult() {
+    public void judgeUsersGameResult() {
         boolean dealerBlackjack = dealer.getIsBlackjack();
         boolean dealerBurst = dealer.getIsBurst();
         int dealerScore = dealer.getOwnedCards().getScore();
@@ -169,7 +169,37 @@ public class Game {
         }
     }
 
-    public void judgeDealerResult(List<UserInfoDto> userInfoDtos) {
-        dealer.judgeDealerResult(userInfoDtos);
+    public void judgePlayersIncome() {
+        for (User user : users) {
+            if (user.gameResult == GameResult.WIN) {
+                judgePlayerIncomeOnUserWin(user);
+                continue;
+            }
+
+            if (user.gameResult == GameResult.LOSE) {
+                judgePlayerIncomeOnUserLose(user);
+            }
+        }
     }
+
+    private void judgePlayerIncomeOnUserWin(User user) {
+        int userBet = user.getBet();
+
+        if (user.getIsBlackjack()) {
+            user.earnBlackjackBet(userBet);
+            dealer.loseBlackjackBet(userBet);
+            return;
+        }
+
+        user.earnBet(userBet);
+        dealer.loseBet(userBet);
+    }
+
+    private void judgePlayerIncomeOnUserLose(User user) {
+        int userBet = user.getBet();
+
+        user.loseBet(userBet);
+        dealer.earnBet(userBet);
+    }
+
 }

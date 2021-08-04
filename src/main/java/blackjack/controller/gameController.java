@@ -1,7 +1,6 @@
 package blackjack.controller;
 
 import blackjack.domain.*;
-import blackjack.domain.dto.DealerInfoDto;
 import blackjack.domain.dto.PlayerInfoDto;
 import blackjack.domain.dto.UserInfoDto;
 import blackjack.view.InputView;
@@ -30,9 +29,11 @@ public class GameController {
         revealInitialCards(game.getUserInfoDtos(), game.getDealerRevealInfoDto());
 
         game.playersGetMoreCard();
-
         game.judgePlayerBurst();
+
         showPlayerCardState();
+        game.judgeUsersGameResult();
+        game.judgePlayersIncome();
         showGameResult();
     }
 
@@ -45,7 +46,7 @@ public class GameController {
         }
     }
 
-    public void revealInitialCards(List<UserInfoDto> userInfoDtos, DealerInfoDto dealerRevealInfoDto) {
+    public void revealInitialCards(List<UserInfoDto> userInfoDtos, PlayerInfoDto dealerRevealInfoDto) {
         OutputView.announceDistribuyingInitCard(dealerRevealInfoDto.getName(),
                 userInfoDtos.stream().map(dto -> dto.getName()).collect(Collectors.toList()));
 
@@ -68,12 +69,12 @@ public class GameController {
     }
 
     public void showGameResult() {
-        game.judgeUsersResult();
-        List<UserInfoDto> userInfoDtos = game.getUserInfoDtos();
-
-        game.judgeDealerResult(userInfoDtos);
-        DealerInfoDto dealerInfoDto = game.getDealerInfoDto();
-
-        OutputView.printGameResult(dealerInfoDto, userInfoDtos);
+//        game.judgeUsersResult();
+//        List<UserInfoDto> userInfoDtos = game.getUserInfoDtos();
+//
+//        game.judgeDealerResult(userInfoDtos);
+//        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+//
+//        OutputView.printGameResult(dealerInfoDto, userInfoDtos);
     }
 }

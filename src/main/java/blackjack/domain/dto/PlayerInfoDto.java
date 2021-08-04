@@ -9,18 +9,21 @@ public class PlayerInfoDto {
 
     String name;
     OwnedCards ownedCards;
+    int income;
 
     public PlayerInfoDto() {
     }
 
-    public PlayerInfoDto(String name, OwnedCards ownedCards) {
+    public PlayerInfoDto(String name, OwnedCards ownedCards, int income) {
         this.name = name;
         this.ownedCards = ownedCards;
+        this.income = income;
     }
 
-    public PlayerInfoDto(String name, List<Card> cards) {
+    public PlayerInfoDto(String name, List<Card> cards, int income) {
         this.name = name;
         this.ownedCards = new OwnedCards(cards);
+        this.income = income;
     }
 
     public String getName() {
@@ -30,6 +33,8 @@ public class PlayerInfoDto {
     public OwnedCards getOwnedCards() {
         return ownedCards;
     }
+
+    public int getIncome() { return income; }
 
     @Override
     public boolean equals(Object o) {

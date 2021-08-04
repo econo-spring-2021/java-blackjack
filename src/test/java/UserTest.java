@@ -84,7 +84,7 @@ class UserTest {
         user.judgeBurst();
         user.judgeResult(false, true, 30);
 
-        Assertions.assertEquals(GameResult.DRAW, user.toDto().getGameResult());
+        Assertions.assertEquals(GameResult.WIN, user.toDto().getGameResult());
     }
 
     @Test

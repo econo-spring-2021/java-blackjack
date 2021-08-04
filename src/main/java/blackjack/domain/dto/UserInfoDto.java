@@ -7,8 +7,8 @@ public class UserInfoDto extends PlayerInfoDto {
 
     GameResult gameResult;
 
-    public UserInfoDto(String name, OwnedCards ownedCards, GameResult gameResult) {
-        super(name, ownedCards);
+    public UserInfoDto(String name, OwnedCards ownedCards, GameResult gameResult, int income) {
+        super(name, ownedCards, income);
         this.gameResult = gameResult;
     }
 

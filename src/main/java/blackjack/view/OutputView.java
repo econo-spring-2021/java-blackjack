@@ -1,7 +1,7 @@
 package blackjack.view;
 
 import blackjack.domain.*;
-import blackjack.domain.dto.DealerInfoDto;
+import blackjack.domain.dto.PlayerInfoDto;
 import blackjack.domain.dto.UserInfoDto;
 
 import java.util.ArrayList;
@@ -65,16 +65,16 @@ public class OutputView {
         System.out.println(Dealer.DEALER_NAME + DEALER_ONEMORE_CARD_MESSAGE);
     }
 
-    public static void printGameResult(DealerInfoDto dealerInfoDto, List<UserInfoDto> userInfoDtos) {
+    public static void printGameResult(PlayerInfoDto dealerInfoDto, List<UserInfoDto> userInfoDtos) {
         System.out.println(SPACE);
-        System.out.println("## 최종 승패");
-        System.out.printf(DEALER_RESULT_MESSAGE, dealerInfoDto.getName(), dealerInfoDto.getWinCount(),
-                                            dealerInfoDto.getLoseCount(), dealerInfoDto.getDrawCount());
-
-        for (UserInfoDto userInfoDto : userInfoDtos) {
-            String resultKoreanString = getUserKoreanResultString(userInfoDto.getGameResult());
-            System.out.println(userInfoDto.getName() + ": " + resultKoreanString);
-        }
+//        System.out.println("## 최종 승패");
+//        System.out.printf(DEALER_RESULT_MESSAGE, dealerInfoDto.getName(), dealerInfoDto.getWinCount(),
+//                                            dealerInfoDto.getLoseCount(), dealerInfoDto.getDrawCount());
+//
+//        for (UserInfoDto userInfoDto : userInfoDtos) {
+//            String resultKoreanString = getUserKoreanResultString(userInfoDto.getGameResult());
+//            System.out.println(userInfoDto.getName() + ": " + resultKoreanString);
+//        }
 
     }
 

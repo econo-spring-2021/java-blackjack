@@ -3,7 +3,7 @@ package blackjack.domain;
 import blackjack.domain.dto.UserInfoDto;
 
 
-public class User extends Player{
+public class User extends Player {
 
     int bet;
     GameResult gameResult;
@@ -14,11 +14,19 @@ public class User extends Player{
     }
 
     public UserInfoDto toDto() {
-        return new UserInfoDto(name, ownedCards, gameResult);
+        return new UserInfoDto(name, ownedCards, gameResult, income);
+    }
+
+    public int getBet() {
+        return bet;
     }
 
     public void setBet(int bet) {
         this.bet = bet;
+    }
+
+    public GameResult getGameResult() {
+        return gameResult;
     }
 
     public boolean isPossibleToGetMoreCard() {
@@ -28,39 +36,44 @@ public class User extends Player{
     public void judgeResult(boolean dealerBlackjack, boolean dealerBurst, int dealerScore) {
 
         if (dealerBlackjack) {
-            judgeResultOnDealerBlackjack();
-        } else if (dealerBurst) {
-            judgeResultOnDealerBurst();
-        } else {
-            judgeResultByScore(ownedCards.getScore(), dealerScore);
-        }
-    }
-
-    private void judgeResultOnDealerBlackjack() {
-        if (super.isBlackjack) {
-            gameResult = GameResult.DRAW;
+            gameResult = getGameResultOnDealerBlackjack();
             return;
         }
 
-        gameResult = GameResult.LOSE;
-    }
-
-    private void judgeResultOnDealerBurst() {
-        if (super.isBurst) {
-            gameResult = GameResult.DRAW;
+        if (dealerBurst) {
+            gameResult = getGameResultOnDealerBurst();
             return;
         }
 
-        gameResult = GameResult.WIN;
-    }
-
-    private void judgeResultByScore(int userScore, int dealerScore) {
-        if (dealerScore == userScore) {
-            gameResult = GameResult.DRAW;
-        } else if (dealerScore < userScore) {
-            gameResult = GameResult.WIN;
-        } else {
+        if (isBurst) {
             gameResult = GameResult.LOSE;
+            return;
         }
+
+        gameResult = getGameResultByScore(ownedCards.getScore(), dealerScore);
+    }
+
+    private GameResult getGameResultOnDealerBlackjack() {
+        if (isBlackjack) {
+            return GameResult.DRAW;
+        }
+
+        return GameResult.LOSE;
+    }
+
+    private GameResult getGameResultOnDealerBurst() {
+        return GameResult.WIN;
+    }
+
+    private GameResult getGameResultByScore(int userScore, int dealerScore) {
+        if (dealerScore == userScore) {
+            return GameResult.DRAW;
+        }
+
+        if (dealerScore < userScore) {
+            return GameResult.WIN;
+        }
+
+        return GameResult.LOSE;
     }
 }

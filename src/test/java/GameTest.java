@@ -1,6 +1,6 @@
 import blackjack.controller.GameController;
 import blackjack.domain.*;
-import blackjack.domain.dto.DealerInfoDto;
+import blackjack.domain.dto.PlayerInfoDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameTest {
+class GameTest {
 
     GameController gameController;
     Game game;
@@ -55,9 +55,9 @@ public class GameTest {
 
         game.distributeInitCard();
         game.playersGetMoreCard();
-        DealerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
 
-        Assertions.assertEquals(dealerInfoDto, dealer);
+        Assertions.assertTrue(dealerInfoDto.equals(dealer));
     }
 
     @Test
@@ -67,8 +67,195 @@ public class GameTest {
         game = new Game(dealer);
 
         game.distributeInitCard();
-        DealerInfoDto dealerRevealInfoDto = game.getDealerRevealInfoDto();
+        PlayerInfoDto dealerRevealInfoDto = game.getDealerRevealInfoDto();
 
-        Assertions.assertEquals(dealerRevealInfoDto, dealer);
+        Assertions.assertTrue(dealerRevealInfoDto.equals(dealer));
+    }
+
+    @Test
+    @DisplayName("(Dealer:blackjack / Users:non-blackjack)의 상황에서 수익을 올바르게 계산하는가?")
+    void test_calculatePlayersIncome_DealerBlackjack_UserNonBlackjack() {
+        User a = new User("a");
+        a.setBet(1000);
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.judgeResult(true, false, 21);
+        game.addUser(a);
+
+        game.judgePlayersIncome();
+        Assertions.assertEquals(-1000, a.getIncome());
+
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        Assertions.assertEquals(1000, dealerInfoDto.getIncome());
+
+    }
+
+    @Test
+    @DisplayName("(Dealer:blackjack / User: blackjack)의 상황에서 수익을 올바르게 계산하는가?")
+    void test_calculatePlayersIncome_DealerBlackjack_UserBlackjack() {
+        User a = new User("a");
+        a.setBet(1000);
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.judgeBlackjack();
+        a.judgeResult(true, false, 21);
+        game.addUser(a);
+
+        game.judgePlayersIncome();
+        Assertions.assertEquals(0, a.getIncome());
+
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        Assertions.assertEquals(0, dealerInfoDto.getIncome());
+
+    }
+
+    @Test
+    @DisplayName("(Dealer:non-blackjack / User: blackjack)의 상황에서 수익을 올바르게 계산하는가?")
+    void test_calculatePlayersIncome_DealerNonBlackjack_UserBlackjack() {
+        User a = new User("a");
+        a.setBet(1000);
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.judgeBlackjack();
+        a.judgeResult(false, false, 20);
+        game.addUser(a);
+
+        game.judgePlayersIncome();
+        Assertions.assertEquals(1500, a.getIncome());
+
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        Assertions.assertEquals(-1500, dealerInfoDto.getIncome());
+
+    }
+
+    @Test
+    @DisplayName("(Dealer:burst / User: non-burst )의 상황에서 수익을 올바르게 계산하는가?")
+    void test_calculatePlayersIncome_DealerBurst_UserNonBurst() {
+        User a = new User("a");
+        a.setBet(1000);
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.judgeResult(false, true, 30);
+        game.addUser(a);
+
+        game.judgePlayersIncome();
+        Assertions.assertEquals(1000, a.getIncome());
+
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        Assertions.assertEquals(-1000, dealerInfoDto.getIncome());
+    }
+
+    @Test
+    @DisplayName("(Dealer:burst / User: burst )의 상황에서 수익을 올바르게 계산하는가?")
+    void test_calculatePlayersIncome_DealerBurst_UserBurst() {
+        User a = new User("a");
+        a.setBet(1000);
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.judgeBurst();
+        a.judgeResult(false, true, 30);
+        game.addUser(a);
+
+        game.judgePlayersIncome();
+        Assertions.assertEquals(1000, a.getIncome());
+
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        Assertions.assertEquals(-1000, dealerInfoDto.getIncome());
+    }
+
+    @Test
+    @DisplayName("(Dealer:non-burst / User: burst )의 상황에서 수익을 올바르게 계산하는가?")
+    void test_calculatePlayersIncome_DealerNonBurst_UserBurst() {
+        User a = new User("a");
+        a.setBet(1000);
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.judgeBurst();
+        a.judgeResult(false, false, 20);
+        game.addUser(a);
+
+        game.judgePlayersIncome();
+        Assertions.assertEquals(-1000, a.getIncome());
+
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        Assertions.assertEquals(1000, dealerInfoDto.getIncome());
+
+    }
+
+    @Test
+    @DisplayName("(User1:win / User2:win )의 상황에서 수익을 올바르게 계산하는가?")
+    void test_calculatePlayersIncome_UsersWin() {
+        User a = new User("a");
+        a.setBet(1000);
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.judgeResult(false, false, 17);
+        game.addUser(a);
+
+        User b = new User("b");
+        b.setBet(2000);
+        b.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        b.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        b.judgeResult(false, false, 17);
+        game.addUser(b);
+
+        game.judgePlayersIncome();
+        Assertions.assertEquals(1000, a.getIncome());
+        Assertions.assertEquals(2000, b.getIncome());
+
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        Assertions.assertEquals(-3000, dealerInfoDto.getIncome());
+    }
+
+    @Test
+    @DisplayName("(User1:lose / User2:win )의 상황에서 수익을 올바르게 계산하는가?")
+    void test_calculatePlayersIncome_UsersWinAndLose() {
+        User a = new User("a");
+        a.setBet(1000);
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TWO));
+        a.judgeResult(false, false, 17);
+        game.addUser(a);
+
+        User b = new User("b");
+        b.setBet(2000);
+        b.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        b.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        b.judgeResult(false, false, 17);
+        game.addUser(b);
+
+        game.judgePlayersIncome();
+        Assertions.assertEquals(-1000, a.getIncome());
+        Assertions.assertEquals(2000, b.getIncome());
+
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        Assertions.assertEquals(-1000, dealerInfoDto.getIncome());
+    }
+
+    @Test
+    @DisplayName("(User1:lose / User2:lose )의 상황에서 수익을 올바르게 계산하는가?")
+    void test_calculatePlayersIncome_UsersLose() {
+        User a = new User("a");
+        a.setBet(1000);
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        a.addCard(new Card(CardShape.CLOVER, CardGrade.TWO));
+        a.judgeResult(false, false, 20);
+        game.addUser(a);
+
+        User b = new User("b");
+        b.setBet(2000);
+        b.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        b.addCard(new Card(CardShape.CLOVER, CardGrade.TWO));
+        b.judgeResult(false, false, 20);
+        game.addUser(b);
+
+        game.judgePlayersIncome();
+        Assertions.assertEquals(-1000, a.getIncome());
+        Assertions.assertEquals(-2000, b.getIncome());
+
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+        Assertions.assertEquals(3000, dealerInfoDto.getIncome());
     }
 }

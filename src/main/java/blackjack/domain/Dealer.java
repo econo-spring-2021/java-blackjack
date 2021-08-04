@@ -1,7 +1,6 @@
 package blackjack.domain;
 
-import blackjack.domain.dto.DealerInfoDto;
-import blackjack.domain.dto.UserInfoDto;
+import blackjack.domain.dto.PlayerInfoDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +12,6 @@ public class Dealer extends Player{
     public static final int DEALER_MORE_CARD_STANDARD_VALUE = 16;
 
     private int gotMoreCardCount = 0;
-    private int winCount = 0;
-    private int drawCount = 0;
-    private int lostCount = 0;
 
     public Dealer()
     {
@@ -24,17 +20,17 @@ public class Dealer extends Player{
     }
 
 
-    public DealerInfoDto toDto() {
-        return new DealerInfoDto(name, ownedCards, winCount, drawCount, lostCount);
+    public PlayerInfoDto toDto() {
+        return new PlayerInfoDto(name, ownedCards, income);
     }
 
-    public DealerInfoDto toRevealDto() {
+    public PlayerInfoDto toRevealDto() {
         List<Card> revealCards = new ArrayList<>();
         for (int i = 0; i < DEALER_REVEAL_CARD_COUNT; i++) {
             revealCards.add(ownedCards.getCard(i));
         }
 
-        return new DealerInfoDto(name, revealCards);
+        return new PlayerInfoDto(name, revealCards, income);
     }
 
     public void addCard(Card card) {
@@ -50,31 +46,5 @@ public class Dealer extends Player{
         }
 
         return false;
-    }
-
-    public void judgeDealerResult(List<UserInfoDto> userInfoDtos) {
-//        setDealerLoseCount(userInfoDtos);
-//        setDealerDrawCount(userInfoDtos);
-//        setDealerWinCount(userInfoDtos.size());
-    }
-
-//    private void setDealerDrawCount(List<UserInfoDto> userInfoDtos) {
-//        for (UserInfoDto userInfoDto : userInfoDtos) {
-//            if (userInfoDto.getIsDrawer()) {
-//                drawCount++;
-//            }
-//        }
-//    }
-//
-//    private void setDealerLoseCount(List<UserInfoDto> userInfoDtos) {
-//        for (UserInfoDto userInfoDto : userInfoDtos) {
-//            if (userInfoDto.getIsWinner()) {
-//                lostCount++;
-//            }
-//        }
-//    }
-
-    private void setDealerWinCount(int totalResultCount) {
-        winCount = totalResultCount - lostCount - drawCount;
     }
 }
