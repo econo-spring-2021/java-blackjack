@@ -100,12 +100,8 @@ public class Game {
 
     private void giveInitCardToDealer() {
         for (int i = 0; i < INIT_CARD_COUNT; i++) {
-            giveCardToDealer(cardPack.getRandomCard());
+            dealer.addCard(cardPack.getRandomCard());
         }
-    }
-
-    private void giveCardToDealer(Card card) {
-        dealer.addCard(card);
     }
 
     public void playersGetMoreCard() {
@@ -113,7 +109,7 @@ public class Game {
             userGetMoreCardTillUnable(user);
         }
 
-        dealerGetMoreCardTillUnable(dealer);
+        dealerGetMoreCardTillUnable();
     }
 
     private void userGetMoreCardTillUnable(User user) {
@@ -124,11 +120,11 @@ public class Game {
         }
     }
 
-    private void dealerGetMoreCardTillUnable(Dealer dealer) {
-        while (isAbleToGetMoreCard(dealer)) {
+    private void dealerGetMoreCardTillUnable() {
+        while (dealer.isPossibleToGetMoreCard()) {
             OutputView.announcingDealerOneMoreCard();
 
-            giveCardToDealer(cardPack.getRandomCard());
+            dealer.addMoreCard(cardPack.getRandomCard());
         }
     }
 
@@ -145,14 +141,6 @@ public class Game {
         }
 
         return true;
-    }
-
-    private boolean isAbleToGetMoreCard(Dealer dealer) {
-        if (dealer.isPossibleToGetMoreCard()) {
-            return true;
-        }
-
-        return false;
     }
 
     public void judgePlayerBurst() {

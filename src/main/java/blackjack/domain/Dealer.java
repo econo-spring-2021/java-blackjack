@@ -33,10 +33,9 @@ public class Dealer extends Player{
         return new PlayerInfoDto(name, revealCards, income);
     }
 
-    public void addCard(Card card) {
+    public void addMoreCard(Card card) {
+        addCard(card);
         gotMoreCardCount++;
-
-        super.addCard(card);
     }
 
     public boolean isPossibleToGetMoreCard() {
