@@ -161,9 +161,11 @@ public class Game {
     }
 
     public void judgeUsersResult() {
+        boolean dealerBlackjack = dealer.getIsBlackjack();
+        boolean dealerBurst = dealer.getIsBurst();
         int dealerScore = dealer.getOwnedCards().getScore();
         for (User user : users) {
-            user.judgeResult(dealerScore);
+            user.judgeResult(dealerBlackjack, dealerBurst, dealerScore);
         }
     }
 

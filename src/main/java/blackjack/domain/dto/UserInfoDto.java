@@ -1,19 +1,16 @@
 package blackjack.domain.dto;
 
+import blackjack.domain.GameResult;
 import blackjack.domain.OwnedCards;
 
 public class UserInfoDto extends PlayerInfoDto {
 
-    boolean isDrawer;
-    boolean isWinner;
+    GameResult gameResult;
 
-    public UserInfoDto(String name, OwnedCards ownedCards, boolean isDrawer, boolean isWinner) {
+    public UserInfoDto(String name, OwnedCards ownedCards, GameResult gameResult) {
         super(name, ownedCards);
-        this.isDrawer = isDrawer;
-        this.isWinner = isWinner;
+        this.gameResult = gameResult;
     }
 
-    public boolean getIsDrawer() { return isDrawer; }
-
-    public boolean getIsWinner() { return isWinner; }
+    public GameResult getGameResult() { return gameResult; }
 }

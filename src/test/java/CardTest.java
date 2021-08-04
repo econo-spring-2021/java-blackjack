@@ -52,7 +52,7 @@ class CardTest {
         ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
         ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
 
-        Assertions.assertEquals(0, ownedCards.getScore());
+        Assertions.assertEquals(30, ownedCards.getScore());
     }
 
     @Test

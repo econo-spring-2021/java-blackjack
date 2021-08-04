@@ -6,8 +6,7 @@ import blackjack.domain.dto.UserInfoDto;
 public class User extends Player{
 
     int bet;
-    boolean isDrawer;
-    boolean isWinner;
+    GameResult gameResult;
 
     public User(String name) {
         super();
@@ -15,7 +14,7 @@ public class User extends Player{
     }
 
     public UserInfoDto toDto() {
-        return new UserInfoDto(name, ownedCards, isDrawer, isWinner);
+        return new UserInfoDto(name, ownedCards, gameResult);
     }
 
     public void setBet(int bet) {
@@ -26,12 +25,42 @@ public class User extends Player{
         return ownedCards.getCardsValueSum() <= Player_LIMIT_CARD_VALUE;
     }
 
-    public void judgeResult(int opponentScore) {
-        int score = ownedCards.getScore();
-        if (opponentScore == score) {
-            isDrawer = true;
-        } else if (opponentScore < score) {
-            isWinner = true;
+    public void judgeResult(boolean dealerBlackjack, boolean dealerBurst, int dealerScore) {
+
+        if (dealerBlackjack) {
+            judgeResultOnDealerBlackjack();
+        } else if (dealerBurst) {
+            judgeResultOnDealerBurst();
+        } else {
+            judgeResultByScore(ownedCards.getScore(), dealerScore);
+        }
+    }
+
+    private void judgeResultOnDealerBlackjack() {
+        if (super.isBlackjack) {
+            gameResult = GameResult.DRAW;
+            return;
+        }
+
+        gameResult = GameResult.LOSE;
+    }
+
+    private void judgeResultOnDealerBurst() {
+        if (super.isBurst) {
+            gameResult = GameResult.DRAW;
+            return;
+        }
+
+        gameResult = GameResult.WIN;
+    }
+
+    private void judgeResultByScore(int userScore, int dealerScore) {
+        if (dealerScore == userScore) {
+            gameResult = GameResult.DRAW;
+        } else if (dealerScore < userScore) {
+            gameResult = GameResult.WIN;
+        } else {
+            gameResult = GameResult.LOSE;
         }
     }
 }

@@ -44,14 +44,9 @@ public class OwnedCards {
 
     public int getScore() {
         int score = getCardsValueSum();
-
         score += getAdditionalAceScore(score);
 
-        if (score > Player.Player_LIMIT_CARD_VALUE) {
-            return 0;
-        } else {
-            return score;
-        }
+        return score;
     }
 
     public int getCardsValueSum() {

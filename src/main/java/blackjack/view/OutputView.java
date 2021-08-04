@@ -72,15 +72,15 @@ public class OutputView {
                                             dealerInfoDto.getLoseCount(), dealerInfoDto.getDrawCount());
 
         for (UserInfoDto userInfoDto : userInfoDtos) {
-            String resultKoreanString = getUserKoreanResultString(userInfoDto.getIsDrawer(), userInfoDto.getIsWinner());
+            String resultKoreanString = getUserKoreanResultString(userInfoDto.getGameResult());
             System.out.println(userInfoDto.getName() + ": " + resultKoreanString);
         }
 
     }
 
-    public static String getUserKoreanResultString(boolean isDrawer, boolean isWinner) {
-        if (isDrawer) return "무";
-        if (isWinner) return "승";
+    public static String getUserKoreanResultString(GameResult gameResult) {
+        if (gameResult == GameResult.DRAW) return "무";
+        if (gameResult == GameResult.WIN) return "승";
         return "패";
     }
 

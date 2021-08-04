@@ -53,26 +53,26 @@ public class Dealer extends Player{
     }
 
     public void judgeDealerResult(List<UserInfoDto> userInfoDtos) {
-        setDealerLoseCount(userInfoDtos);
-        setDealerDrawCount(userInfoDtos);
-        setDealerWinCount(userInfoDtos.size());
+//        setDealerLoseCount(userInfoDtos);
+//        setDealerDrawCount(userInfoDtos);
+//        setDealerWinCount(userInfoDtos.size());
     }
 
-    private void setDealerDrawCount(List<UserInfoDto> userInfoDtos) {
-        for (UserInfoDto userInfoDto : userInfoDtos) {
-            if (userInfoDto.getIsDrawer()) {
-                drawCount++;
-            }
-        }
-    }
-
-    private void setDealerLoseCount(List<UserInfoDto> userInfoDtos) {
-        for (UserInfoDto userInfoDto : userInfoDtos) {
-            if (userInfoDto.getIsWinner()) {
-                lostCount++;
-            }
-        }
-    }
+//    private void setDealerDrawCount(List<UserInfoDto> userInfoDtos) {
+//        for (UserInfoDto userInfoDto : userInfoDtos) {
+//            if (userInfoDto.getIsDrawer()) {
+//                drawCount++;
+//            }
+//        }
+//    }
+//
+//    private void setDealerLoseCount(List<UserInfoDto> userInfoDtos) {
+//        for (UserInfoDto userInfoDto : userInfoDtos) {
+//            if (userInfoDto.getIsWinner()) {
+//                lostCount++;
+//            }
+//        }
+//    }
 
     private void setDealerWinCount(int totalResultCount) {
         winCount = totalResultCount - lostCount - drawCount;

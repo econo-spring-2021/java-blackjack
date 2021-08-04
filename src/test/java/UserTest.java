@@ -55,25 +55,68 @@ class UserTest {
     }
 
     @Test
-    @DisplayName("유저의 이긴 게임의 결과를 올바르게 판단하는가?")
-    void test_judgeResult_IfWin() {
-        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+    @DisplayName("딜러가 블랙잭일 때, 유저도 블랙잭이면 게임의 결과를 올바르게 한단하는가")
+    void test_judgeResultOnDealerBlackjack_IfUserBlackjack() {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
         user.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
-        user.judgeResult(20);
+        user.judgeBlackjack();
+        user.judgeResult(true, false, 21);
 
-        Assertions.assertEquals(true, user.toDto().getIsWinner());
+        Assertions.assertEquals(GameResult.DRAW, user.toDto().getGameResult());
     }
 
     @Test
-    @DisplayName("유저의 비긴 게임의 결과를 올바르게 판단하는가?")
-    void test_judgeResult_IfDraw() {
+    @DisplayName("딜러가 블랙잭일 때, 유저는 블랙잭이 아니면 게임의 결과를 올바르게 한단하는가")
+    void test_judgeResultOnDealerBlackjack_IfUserNotBlackjack() {
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        user.judgeResult(true, false, 21);
+
+        Assertions.assertEquals(GameResult.LOSE, user.toDto().getGameResult());
+    }
+
+    @Test
+    @DisplayName("딜러가 버스트일 때, 유저도 버스트면 게임의 결과를 올바르게 한단하는가")
+    void test_judgeResultOnDealerBurst_IfUserBurst() {
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        user.judgeBurst();
+        user.judgeResult(false, true, 30);
+
+        Assertions.assertEquals(GameResult.DRAW, user.toDto().getGameResult());
+    }
+
+    @Test
+    @DisplayName("딜러가 버스트일 때, 유저는 버스트가 아니면 게임의 결과를 올바르게 한단하는가")
+    void test_judgeResultOnDealerBurst_IfUserNotBurst() {
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        user.judgeResult(false, true, 30);
+
+        Assertions.assertEquals(GameResult.WIN, user.toDto().getGameResult());
+    }
+
+    @Test
+    @DisplayName("점수로 결과를 판단할 때, 유저의 이긴 게임의 결과를 올바르게 판단하는가?")
+    void test_judgeResultByScore_IfWin() {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
         user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
         user.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
-        user.judgeResult(21);
+        user.judgeResult(false, false, 20);
 
-        Assertions.assertEquals(true, user.toDto().getIsDrawer());
+        Assertions.assertEquals(GameResult.WIN, user.toDto().getGameResult());
+    }
+
+    @Test
+    @DisplayName("점수로 결과를 판단할 때, 유저의 비긴 게임의 결과를 올바르게 판단하는가?")
+    void test_judgeResultByScore_IfDraw() {
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
+        user.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
+        user.judgeResult(false, false ,21);
+
+        Assertions.assertEquals(GameResult.DRAW, user.toDto().getGameResult());
     }
 
     @DisplayName("버스트 판정이 올바르게 되는가?")
