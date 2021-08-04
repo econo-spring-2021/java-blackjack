@@ -118,6 +118,7 @@ public class Game {
 
     private void userGetMoreCardTillUnable(User user) {
         while (isAbleToGetMoreCard(user)) {
+
             giveCardToUser(user, cardPack.getRandomCard());
         }
     }

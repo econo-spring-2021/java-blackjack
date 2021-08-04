@@ -39,9 +39,9 @@ public class GameController {
 
     public void generatePerson() {
         OutputView.askUserNames();
-        List<String> UserNames = InputView.getUserNames();
+        List<String> userNames = InputView.getUserNames();
 
-        for (String userName : UserNames) {
+        for (String userName : userNames) {
             game.addUser(new User(userName));
         }
     }
@@ -69,12 +69,9 @@ public class GameController {
     }
 
     public void showGameResult() {
-//        game.judgeUsersResult();
-//        List<UserInfoDto> userInfoDtos = game.getUserInfoDtos();
-//
-//        game.judgeDealerResult(userInfoDtos);
-//        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
-//
-//        OutputView.printGameResult(dealerInfoDto, userInfoDtos);
+        List<UserInfoDto> userInfoDtos = game.getUserInfoDtos();
+        PlayerInfoDto dealerInfoDto = game.getDealerInfoDto();
+
+        OutputView.printGameResult(dealerInfoDto, userInfoDtos);
     }
 }

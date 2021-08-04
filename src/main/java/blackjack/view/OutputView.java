@@ -17,7 +17,7 @@ public class OutputView {
     private static final String DEALER_ONEMORE_CARD_MESSAGE = "는 16이하라 한장의 카드를 더 받았습니다.";
 
     private static final String GAME_RESULT_TITLE = "## 최종 승패";
-    private static final String DEALER_RESULT_MESSAGE = "%s: %d승 %d패 %d무\n";
+    private static final String GAME_RESULT_MESSAGE = "%s: %d\n";
 
     public static void askUserNames() {
         System.out.println(ASKING_USER_NAMES_MESSAGE);
@@ -67,21 +67,13 @@ public class OutputView {
 
     public static void printGameResult(PlayerInfoDto dealerInfoDto, List<UserInfoDto> userInfoDtos) {
         System.out.println(SPACE);
-//        System.out.println("## 최종 승패");
-//        System.out.printf(DEALER_RESULT_MESSAGE, dealerInfoDto.getName(), dealerInfoDto.getWinCount(),
-//                                            dealerInfoDto.getLoseCount(), dealerInfoDto.getDrawCount());
-//
-//        for (UserInfoDto userInfoDto : userInfoDtos) {
-//            String resultKoreanString = getUserKoreanResultString(userInfoDto.getGameResult());
-//            System.out.println(userInfoDto.getName() + ": " + resultKoreanString);
-//        }
+        System.out.println("## 최종 수익");
+        System.out.printf(GAME_RESULT_MESSAGE, dealerInfoDto.getName(), dealerInfoDto.getIncome());
 
-    }
+        for (UserInfoDto userInfoDto : userInfoDtos) {
+            System.out.printf(GAME_RESULT_MESSAGE, userInfoDto.getName(), userInfoDto.getIncome());
+        }
 
-    public static String getUserKoreanResultString(GameResult gameResult) {
-        if (gameResult == GameResult.DRAW) return "무";
-        if (gameResult == GameResult.WIN) return "승";
-        return "패";
     }
 
     public static void printExceptionMessage(Exception e) {
