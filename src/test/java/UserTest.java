@@ -29,7 +29,7 @@ class UserTest {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.FIVE));
         user.addCard(new Card(CardShape.CLOVER, CardGrade.FIVE));
 
-        final boolean rightJudgement = 5 + 5 < User.USER_LIMIT_CARD_VALUE;
+        final boolean rightJudgement = 5 + 5 < Player.Player_LIMIT_CARD_VALUE;
         Assertions.assertEquals(rightJudgement, user.isPossibleToGetMoreCard());
     }
 
@@ -39,7 +39,7 @@ class UserTest {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
         user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
 
-        final boolean rightJudgement = 10 + 10 < User.USER_LIMIT_CARD_VALUE;
+        final boolean rightJudgement = 10 + 10 < Player.Player_LIMIT_CARD_VALUE;
         Assertions.assertEquals(rightJudgement, user.isPossibleToGetMoreCard());
     }
 
@@ -50,7 +50,7 @@ class UserTest {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
         user.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
 
-        final boolean rightJudgement = 5 + 5 < User.USER_LIMIT_CARD_VALUE;
+        final boolean rightJudgement = 5 + 5 < Player.Player_LIMIT_CARD_VALUE;
         Assertions.assertEquals(rightJudgement, user.isPossibleToGetMoreCard());
     }
 

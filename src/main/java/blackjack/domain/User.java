@@ -1,12 +1,9 @@
 package blackjack.domain;
 
 import blackjack.domain.dto.UserInfoDto;
-import blackjack.view.InputView;
-import blackjack.view.OutputView;
 
 
 public class User extends Player{
-    public static final int USER_LIMIT_CARD_VALUE = 21;
 
     int bet;
     boolean isDrawer;
@@ -26,7 +23,7 @@ public class User extends Player{
     }
 
     public boolean isPossibleToGetMoreCard() {
-        return ownedCards.getCardsValueSum() <= USER_LIMIT_CARD_VALUE;
+        return ownedCards.getCardsValueSum() <= Player_LIMIT_CARD_VALUE;
     }
 
     public void judgeResult(int opponentScore) {

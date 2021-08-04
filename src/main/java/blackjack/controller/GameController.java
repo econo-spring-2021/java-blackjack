@@ -28,6 +28,7 @@ public class GameController {
 
         game.distributeInitCard();
         game.judgePlayerBlackjack();
+
         revealInitialCards(game.getUserInfoDtos(), game.getDealerRevealInfoDto());
 
         game.playersGetMoreCard();

@@ -35,7 +35,7 @@ public class OwnedCards {
     }
 
     public boolean isBlackjack() {
-        return getScore() == User.USER_LIMIT_CARD_VALUE;
+        return getScore() == Player.Player_LIMIT_CARD_VALUE;
     }
 
     public int getScore() {
@@ -43,7 +43,7 @@ public class OwnedCards {
 
         score += getAdditionalAceScore(score);
 
-        if (score > User.USER_LIMIT_CARD_VALUE) {
+        if (score > Player.Player_LIMIT_CARD_VALUE) {
             return 0;
         } else {
             return score;
@@ -60,7 +60,7 @@ public class OwnedCards {
     }
 
     public int getAdditionalAceScore(int currentScore) {
-        int remainingValueUpToMax = User.USER_LIMIT_CARD_VALUE - currentScore;
+        int remainingValueUpToMax = Player.Player_LIMIT_CARD_VALUE - currentScore;
         if (remainingValueUpToMax <= 0) {
             return 0;
         }

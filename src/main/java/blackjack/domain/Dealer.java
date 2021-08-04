@@ -45,7 +45,7 @@ public class Dealer extends Player{
 
     public boolean isPossibleToGetMoreCard() {
         if (gotMoreCardCount < DEALER_MORE_CARD_COUNT &&
-                ownedCards.getCardsValueSum() <= DEALER_MORE_CARD_STANDARD_VALUE) {
+                ownedCards.getScore() <= DEALER_MORE_CARD_STANDARD_VALUE) {
             return true;
         }
 

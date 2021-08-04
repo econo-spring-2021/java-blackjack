@@ -1,6 +1,7 @@
 package blackjack.domain;
 
 public abstract class Player {
+    public static final int Player_LIMIT_CARD_VALUE = 21;
 
     String name;
     OwnedCards ownedCards;
