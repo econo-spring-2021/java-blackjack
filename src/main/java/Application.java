@@ -2,7 +2,6 @@ import controller.Game;
 import domain.Cards;
 import domain.Players;
 import view.InputView;
-import view.OutputView;
 
 import java.io.IOException;
 
@@ -11,11 +10,10 @@ public class Application {
         Players players = new Players(Game.setPlayerName(InputView.playerNameView()));
         Cards cards = new Cards(Cards.setCards());
 
-        players.giveTwoCards(cards);
-        players.askPlayersOneMoreCard(cards);
-        players.getDealerOneMoreCard(cards);
-
-        players.showPlayersResults();
-        players.setWinOrLose();
+        Game.giveTwoCards(cards, players);
+        Game.askPlayersOneMoreCard(cards, players);
+        Game.getDealerOneMoreCard(cards, players);
+        Game.showPlayersResults(players);
+        Game.setWinOrLose(players);
     }
 }

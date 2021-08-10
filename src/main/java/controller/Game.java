@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 
 public class Game {
     public static final String INVALID_INPUT_NAME_EXCEPTION = "쉼표를 기준으로 사람의 이름을 입력하세요.";
+    public static final String INVALID_ONE_CARD_ASK_ANSWER = "예는 y, 아니오는 n으로 입력해주세요.";
 
     public static ArrayList<Player> setPlayerName(String inputName) throws IOException {
         ArrayList<Player> players = new ArrayList<>();
@@ -40,5 +41,56 @@ public class Game {
                 throw new Exception(INVALID_INPUT_NAME_EXCEPTION);
             }
         }
+    }
+
+    public static void giveTwoCards(Cards cards, Players players) {
+        InputView.giveTwoCardsView(players.getPlayers());
+        players.getTwoCards(cards);
+        InputView.playersTwoCardsView(players.getPlayers());
+    }
+
+    public static void askPlayersOneMoreCard(Cards cards, Players players) throws IOException {
+        for (int i = 1; i < players.getPlayersSize(); i++) {
+            String answer = getOnePlayerOneMoreCardWants(players.getPlayers().get(i));
+            while ("y".equals(answer)) {
+                players.addPlayerOneMoreCard(cards, i);
+                answer = getOnePlayerOneMoreCardWants(players.getPlayers().get(i));
+            }
+            OutputView.playerCardView(players.getPlayers().get(i));
+        }
+    }
+
+    public static String getOnePlayerOneMoreCardWants(Player player) {
+        String answer = "";
+        try {
+            answer = InputView.oneMoreCardView(player);
+            catchInvalidOneCardAskAnswer(answer);
+        } catch (Exception | IOException e) {
+            System.out.println(e.getMessage());
+            getOnePlayerOneMoreCardWants(player);
+        }
+        return answer;
+    }
+
+    public static void catchInvalidOneCardAskAnswer(String answer) throws Exception {
+        if (!"y".equals(answer) && !"n".equals(answer)) {
+            throw new Exception(INVALID_ONE_CARD_ASK_ANSWER);
+        }
+    }
+
+    public static void getDealerOneMoreCard(Cards cards, Players players) {
+        boolean isDealerOneMoreCardNeeded = players.checkDealerOneMoreCardNeeded(cards);
+        if (isDealerOneMoreCardNeeded) {
+            InputView.dealerOneMoreCardView();
+        }
+    }
+
+    public static void showPlayersResults(Players players) {
+        OutputView.playersResultView(players.getPlayers());
+    }
+
+    public static void setWinOrLose(Players players) {
+        int dealerWinCount = players.getDealerWinCount();
+        OutputView.winOrLoseResultView(players.getPlayers(), dealerWinCount);
     }
 }

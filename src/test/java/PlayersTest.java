@@ -38,9 +38,9 @@ public class PlayersTest {
         cards = new Cards(cardList);
 
         //플레이어에게 두 개의 카드 주기
-        players.giveTwoCards(cards);
+        players.getTwoCards(cards);
         //딜러 한 장의 카드 더 주기
-        players.getDealerOneMoreCard(cards);
+        players.checkDealerOneMoreCardNeeded(cards);
     }
 
     @DisplayName("giveTwoCards 테스트")
@@ -56,17 +56,16 @@ public class PlayersTest {
         assertThat(hero.getCards().getCards().get(1).getCardName()).isEqualTo("K클로버");
     }
 
-    @DisplayName("getDealerOneMoreCard 테스트")
+    @DisplayName("checkDealerOneMoreCardNeeded 테스트")
     @Test
-    public void getDealerOneMoreCardTest() {
+    public void checkDealerOneMoreCardNeededTest() {
         assertThat(dealer.getCards().getCards().get(2).getCardName()).isEqualTo("2스페이드");
     }
 
-    @DisplayName("setWinOrLose 테스트")
+    @DisplayName("getDealerWinCount 테스트")
     @Test
-    public void setWinOrLoseTest() {
-        players.setWinOrLose();
-        assertThat(asong.getResult()).isEqualTo("승");
-        assertThat(hero.getResult()).isEqualTo("승");
+    public void getDealerWinCount() {
+        int dealerWinCount = players.getDealerWinCount();
+        assertThat(dealerWinCount).isEqualTo(0);
     }
 }
