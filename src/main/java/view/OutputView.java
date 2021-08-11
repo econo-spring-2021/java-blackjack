@@ -19,11 +19,16 @@ public class OutputView {
         view.append(player.getName()).append(CARD);
         for (int i = 0; i < player.getCards().getCards().size(); i++) {
             view.append(player.getCards().getCards().get(i).getCardName());
-            if (i != player.getCards().getCards().size() - 1) {
-                view.append(", ");
-            }
+            view = addComma(i, player, view);
         }
         System.out.println(view.toString());
+    }
+
+    public static StringBuilder addComma(int i, Player player, StringBuilder view) {
+        if (i != player.getCards().getCards().size() - 1) {
+            view.append(COMMA);
+        }
+        return view;
     }
 
     public static void playersResultView(ArrayList<Player> players) {
@@ -38,9 +43,7 @@ public class OutputView {
         view.append(player.getName()).append(CARD);
         for (int i = 0; i < player.getCards().getCards().size(); i++) {
             view.append(player.getCards().getCards().get(i).getCardName());
-            if (i != player.getCards().getCards().size() - 1) {
-                view.append(COMMA);
-            }
+            view = addComma(i, player, view);
         }
         view.append(RESULT).append(player.getCards().getCardsSum());
         System.out.println(view.toString());
