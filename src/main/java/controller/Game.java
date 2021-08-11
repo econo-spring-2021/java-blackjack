@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 public class Game {
     public static final String INVALID_INPUT_NAME_EXCEPTION = "쉼표를 기준으로 사람의 이름을 입력하세요.";
     public static final String INVALID_ONE_CARD_ASK_ANSWER = "예는 y, 아니오는 n으로 입력해주세요.";
+    public static final String INVALID_BETTING_MONEY_INPUT = "베팅 금액을 숫자로 입력해주세요.";
 
     public static ArrayList<Player> setPlayerName(String inputName) throws IOException {
         ArrayList<Player> players = new ArrayList<>();
@@ -39,6 +40,33 @@ public class Game {
             }
             if (c > 'Z' && c < 'a') {
                 throw new Exception(INVALID_INPUT_NAME_EXCEPTION);
+            }
+        }
+    }
+
+    public static void setPlayersBettingMoney(Players players) throws IOException {
+        for (int i = 1; i < players.getPlayersSize(); i++) {
+            setOnePlayerBettingMoney(players, i);
+        }
+    }
+
+    public static void setOnePlayerBettingMoney(Players players, int index) throws IOException {
+        String inputBettingMoney = InputView.inputBettingMoneyView(players.getPlayerName(index));
+        try {
+            catchInvalidBettingMoneyInputException(inputBettingMoney);
+            int bettingMoney = Integer.parseInt(inputBettingMoney);
+            players.setPlayerBettingMoney(index, bettingMoney);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            setOnePlayerBettingMoney(players, index);
+        }
+    }
+
+    public static void catchInvalidBettingMoneyInputException(String inputBettingMoney) throws Exception {
+        for (int i = 0; i < inputBettingMoney.length(); i++) {
+            char c = inputBettingMoney.charAt(i);
+            if (c < '0' || c > '9') {
+                throw new Exception(INVALID_BETTING_MONEY_INPUT);
             }
         }
     }

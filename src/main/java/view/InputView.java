@@ -17,6 +17,7 @@ public class InputView {
     public static final String DEALER_ONE_MORE_CARD_VIEW = "딜러는 16이하라 한 장의 카드를 더 받았습니다.";
     public static final String WITH = "와 ";
     public static final String COMMA = ", ";
+    public static final String BETTING_MONEY_INPUT_VIEW = "의 베팅 금액은?";
 
     public static String playerNameView() throws IOException {
         System.out.println(PLAYER_NAME_VIEW);
@@ -24,7 +25,14 @@ public class InputView {
         return br.readLine();
     }
 
+    public static String inputBettingMoneyView(String playerName) throws IOException {
+        System.out.println(playerName + BETTING_MONEY_INPUT_VIEW);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        return br.readLine();
+    }
+
     public static void giveTwoCardsView(ArrayList<Player> players) {
+        System.out.println();
         String view = DEALER;
         view += WITH;
         for (int i = 1; i < players.size(); i++) {

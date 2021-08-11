@@ -46,6 +46,14 @@ public class Players {
         return players.size();
     }
 
+    public void setPlayerBettingMoney(int index, int bettingMoney){
+        players.get(index).setBettingMoney(bettingMoney);
+    }
+
+    public String getPlayerName(int index){
+        return players.get(index).getName();
+    }
+
     //Test용, View용
     public ArrayList<Player> getPlayers() {
         return players;

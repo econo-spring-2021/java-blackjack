@@ -10,6 +10,7 @@ public class Player {
     private String name;
     private final Cards playerCards;
     private String result;
+    private int bettingMoney;
 
     public Player(String name) {
         this.name = name;
@@ -42,5 +43,9 @@ public class Player {
 
     public String getResult() {
         return result;
+    }
+
+    public void setBettingMoney(int bettingMoney) {
+        this.bettingMoney = bettingMoney;
     }
 }

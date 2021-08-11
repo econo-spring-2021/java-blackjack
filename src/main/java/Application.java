@@ -10,6 +10,7 @@ public class Application {
         Players players = new Players(Game.setPlayerName(InputView.playerNameView()));
         Cards cards = new Cards(Cards.setCards());
 
+        Game.setPlayersBettingMoney(players);
         Game.giveTwoCards(cards, players);
         Game.askPlayersOneMoreCard(cards, players);
         Game.getDealerOneMoreCard(cards, players);
