@@ -12,9 +12,10 @@ public class Application {
 
         Game.setPlayersBettingMoney(players);
         Game.giveTwoCards(cards, players);
+        Game.checkPlayersTwoCardsSum(players);
         Game.askPlayersOneMoreCard(cards, players);
         Game.getDealerOneMoreCard(cards, players);
         Game.showPlayersResults(players);
-        Game.setWinOrLose(players);
+        Game.checkPlayersProfit(players);
     }
 }

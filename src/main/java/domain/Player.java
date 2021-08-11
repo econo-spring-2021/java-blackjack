@@ -3,18 +3,17 @@ package domain;
 import java.util.ArrayList;
 
 public class Player {
-    public static final String WIN = "승";
-    public static final String LOSE = "패";
     public static final int BLACKJACK_NUMBER = 21;
 
     private String name;
     private final Cards playerCards;
-    private String result;
+    private int cardsSum;
     private int bettingMoney;
 
     public Player(String name) {
         this.name = name;
         this.playerCards = new Cards(new ArrayList<>());
+        this.bettingMoney = 0;
     }
 
     public Cards getPlayerCards() {
@@ -25,27 +24,50 @@ public class Player {
         return name;
     }
 
-    public void setResult(int dealerSum) {
-        int playerScore = BLACKJACK_NUMBER - playerCards.getCardsSum();
-        if (playerScore >= 0 && playerScore <= dealerSum) {
-            result = WIN;
+    public int calculateCardsSum() {
+        cardsSum = playerCards.getCardsSum();
+        return cardsSum;
+    }
+
+    public void checkBlackJackFirst(int dealerCardSum) {
+        if (dealerCardSum == BLACKJACK_NUMBER && cardsSum == BLACKJACK_NUMBER) {
+            bettingMoney = 0;
             return;
         }
-        result = LOSE;
-    }
-
-    public int getDealerWinCount() {
-        if (result.equals(WIN)) {
-            return 0;
+        if (dealerCardSum != BLACKJACK_NUMBER && cardsSum == BLACKJACK_NUMBER) {
+            bettingMoney += bettingMoney / 2;
+            return;
         }
-        return 1;
     }
 
-    public String getResult() {
-        return result;
+    public void calculateBettingMoney(int dealerCardSum) {
+        cardsSum = playerCards.getCardsSum();
+        if (dealerCardSum > BLACKJACK_NUMBER) {
+            return;
+        }
+        if (dealerCardSum == BLACKJACK_NUMBER && cardsSum == BLACKJACK_NUMBER) {
+            bettingMoney = 0;
+            return;
+        }
+        if (cardsSum > BLACKJACK_NUMBER) {
+            bettingMoney = -bettingMoney;
+            return;
+        }
+        if (cardsSum < dealerCardSum) {
+            bettingMoney = -bettingMoney;
+            return;
+        }
+    }
+
+    public int getCardsSum() {
+        return cardsSum;
     }
 
     public void setBettingMoney(int bettingMoney) {
         this.bettingMoney = bettingMoney;
+    }
+
+    public int getBettingMoney() {
+        return bettingMoney;
     }
 }

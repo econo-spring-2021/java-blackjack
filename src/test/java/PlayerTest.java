@@ -15,9 +15,6 @@ public class PlayerTest {
         player = new Player("songa");
         player.getPlayerCards().getCardsList().add(new Card(Card.Type.클로버, "9"));
         player.getPlayerCards().getCardsList().add(new Card(Card.Type.클로버, "8"));
-        int dealerScore = 5;
-        //player setResult
-        player.setResult(dealerScore);
     }
 
     @DisplayName("getName 테스트")
@@ -29,12 +26,7 @@ public class PlayerTest {
     @DisplayName("getResult 테스트")
     @Test
     public void resultTest() {
-        assertThat(player.getResult()).isEqualTo("승");
+        assertThat(player.getCardsSum()).isEqualTo("승");
     }
 
-    @DisplayName("getDealerWinCount 테스트")
-    @Test
-    public void getDealerWinCountTest() {
-        assertThat(player.getDealerWinCount()).isEqualTo(0);
-    }
 }

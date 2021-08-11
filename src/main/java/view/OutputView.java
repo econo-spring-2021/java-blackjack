@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class OutputView {
     public static final String CARD = "카드: ";
     public static final String RESULT = " - 결과: ";
-    public static final String WIN_OR_LOSE_RESULT_VIEW = "## 최종 승패";
+    public static final String FINAL_PROFIT_RESULT_VIEW = "## 최종 수익";
     public static final String COLON = ": ";
     public static final String WIN = "승 ";
     public static final String LOSE = "패";
@@ -48,12 +48,11 @@ public class OutputView {
         System.out.println(view.toString());
     }
 
-    public static void winOrLoseResultView(ArrayList<Player> players, int dealerWinCount) {
-        System.out.println(WIN_OR_LOSE_RESULT_VIEW);
+    public static void finalProfitView(ArrayList<Player> players) {
+        System.out.println(FINAL_PROFIT_RESULT_VIEW);
         StringBuilder sb = new StringBuilder();
-        sb.append(players.get(0).getName()).append(COLON).append(dealerWinCount).append(WIN).append(players.size() - 1 - dealerWinCount).append(LOSE).append("\n");
-        for (int i = 1; i < players.size(); i++) {
-            sb.append(players.get(i).getName()).append(COLON).append(players.get(i).getResult()).append("\n");
+        for (int i = 0; i < players.size(); i++) {
+            sb.append(players.get(i).getName()).append(COLON).append(players.get(i).getBettingMoney()).append("\n");
         }
         System.out.println(sb.toString());
     }

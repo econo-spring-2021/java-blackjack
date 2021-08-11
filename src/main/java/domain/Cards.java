@@ -71,5 +71,4 @@ public class Cards {
         }
         return Integer.parseInt(number);
     }
-
 }

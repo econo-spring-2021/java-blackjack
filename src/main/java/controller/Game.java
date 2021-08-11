@@ -77,6 +77,13 @@ public class Game {
         InputView.playersTwoCardsView(players.getPlayers());
     }
 
+    public static void checkPlayersTwoCardsSum(Players players) {
+        int dealerCardSum = players.checkPlayerCardsSum(0);
+        for (int i = 1; i < players.getPlayersSize(); i++) {
+            players.checkPlayerBlackJack(dealerCardSum, i);
+        }
+    }
+
     public static void askPlayersOneMoreCard(Cards cards, Players players) throws IOException {
         for (int i = 1; i < players.getPlayersSize(); i++) {
             String answer = getOnePlayerOneMoreCardWants(players.getPlayers().get(i));
@@ -117,8 +124,11 @@ public class Game {
         OutputView.playersResultView(players.getPlayers());
     }
 
-    public static void setWinOrLose(Players players) {
-        int dealerWinCount = players.getDealerWinCount();
-        OutputView.winOrLoseResultView(players.getPlayers(), dealerWinCount);
+    public static void checkPlayersProfit(Players players) {
+        int dealerCardSum = players.checkPlayerCardsSum(0);
+        for (int i = 1; i < players.getPlayersSize(); i++) {
+            players.checkPlayerProfit(dealerCardSum, i);
+        }
+        OutputView.finalProfitView(players.getPlayers());
     }
 }
