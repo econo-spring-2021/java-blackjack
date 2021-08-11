@@ -75,9 +75,10 @@ public class Game {
     }
 
     public void judgePlayerBlackjack() {
-        for (User user : users) {
-            user.judgeBlackjack();
-        }
+        users.forEach(User::judgeBlackjack);
+//        for (User user : users) {
+//            user.judgeBlackjack();
+//        }
         dealer.judgeBlackjack();
     }
 
