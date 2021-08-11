@@ -21,7 +21,7 @@ class UserTest {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
         user.judgeBlackjack();
 
-        Assertions.assertTrue(user.getIsBlackjack());
+        Assertions.assertTrue(user.isBlackjack());
     }
 
     @Test

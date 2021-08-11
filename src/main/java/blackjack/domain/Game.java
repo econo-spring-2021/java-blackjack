@@ -149,7 +149,7 @@ public class Game {
     }
 
     public void judgeUsersGameResult() {
-        boolean dealerBlackjack = dealer.getIsBlackjack();
+        boolean dealerBlackjack = dealer.isBlackjack();
         boolean dealerBurst = dealer.getIsBurst();
         int dealerScore = dealer.getOwnedCards().getScore();
         for (User user : users) {
@@ -173,7 +173,7 @@ public class Game {
     private void judgePlayerIncomeOnUserWin(User user) {
         int userBet = user.getBet();
 
-        if (user.getIsBlackjack()) {
+        if (user.isBlackjack()) {
             user.earnBlackjackBet(userBet);
             dealer.loseBlackjackBet(userBet);
             return;

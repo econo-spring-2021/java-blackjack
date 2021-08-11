@@ -22,7 +22,7 @@ public abstract class Player {
         return ownedCards;
     }
 
-    public boolean getIsBlackjack() {
+    public boolean isBlackjack() {
         return isBlackjack;
     }
 

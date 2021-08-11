@@ -43,7 +43,7 @@ public class DealerTest {
         dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
         dealer.judgeBlackjack();
 
-        Assertions.assertTrue(dealer.getIsBlackjack());
+        Assertions.assertTrue(dealer.isBlackjack());
     }
 
     @DisplayName("버스트 판정이 올바르게 되는가?")
