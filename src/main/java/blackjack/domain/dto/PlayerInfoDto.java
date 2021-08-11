@@ -1,10 +1,12 @@
 package blackjack.domain.dto;
 
 import blackjack.domain.Card;
+import blackjack.domain.Dealer;
 import blackjack.domain.OwnedCards;
 import blackjack.domain.Player;
 
 import java.util.List;
+
 public class PlayerInfoDto {
 
     String name;
@@ -14,10 +16,10 @@ public class PlayerInfoDto {
     public PlayerInfoDto() {
     }
 
-    public PlayerInfoDto(String name, OwnedCards ownedCards, int income) {
-        this.name = name;
-        this.ownedCards = ownedCards;
-        this.income = income;
+    public PlayerInfoDto(Dealer dealer) {
+        this.name = dealer.getName();
+        this.ownedCards = dealer.getOwnedCards();
+        this.income = dealer.getIncome();
     }
 
     public PlayerInfoDto(String name, List<Card> cards, int income) {
@@ -34,7 +36,9 @@ public class PlayerInfoDto {
         return ownedCards;
     }
 
-    public int getIncome() { return income; }
+    public int getIncome() {
+        return income;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -17,7 +17,7 @@
 * [x] 숫자 합산 및 출력
 * [x] 결과 판단 및 출력
 
-# feedback
+# first week feedback
 * [x] 대소문자 구분 git 설정
 * [x] user, dealer 의 상속 구조
 * [x] getMoreCardTillUnableOrDeny 메소드 Game의 책임으로
@@ -36,4 +36,10 @@
 * [x] 승패 판정 -> 배팅 판정 로직 변경 (블랙잭, 버스트 고려)
 * [x] 수익 계산 로직 구현하기
 * [x] 배팅 결과 출력하기
-* [ ] 테스트 코드 빠진 부분 채우기
+* [x] 테스트 코드 빠진 부분 채우기
+
+# second week feedback
+* [ ] User 와 UserInfoDto 의 의존관계 정리
+* [ ] Player.java의 getIsBlackjack 메소드 네이밍 변경
+* [ ] Game.java의 judegePlayerBurst 메소드 리팩토링
+* [ ] CardPack.java의 리펙토링

@@ -1,4 +1,5 @@
 import blackjack.domain.*;
+import blackjack.domain.dto.UserInfoDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -62,7 +63,7 @@ class UserTest {
         user.judgeBlackjack();
         user.judgeResult(true, false, 21);
 
-        Assertions.assertEquals(GameResult.DRAW, user.toDto().getGameResult());
+        Assertions.assertEquals(GameResult.DRAW, new UserInfoDto(user).getGameResult());
     }
 
     @Test
@@ -72,7 +73,7 @@ class UserTest {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
         user.judgeResult(true, false, 21);
 
-        Assertions.assertEquals(GameResult.LOSE, user.toDto().getGameResult());
+        Assertions.assertEquals(GameResult.LOSE, new UserInfoDto(user).getGameResult());
     }
 
     @Test
@@ -84,7 +85,7 @@ class UserTest {
         user.judgeBurst();
         user.judgeResult(false, true, 30);
 
-        Assertions.assertEquals(GameResult.WIN, user.toDto().getGameResult());
+        Assertions.assertEquals(GameResult.WIN, new UserInfoDto(user).getGameResult());
     }
 
     @Test
@@ -94,7 +95,7 @@ class UserTest {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.TEN));
         user.judgeResult(false, true, 30);
 
-        Assertions.assertEquals(GameResult.WIN, user.toDto().getGameResult());
+        Assertions.assertEquals(GameResult.WIN, new UserInfoDto(user).getGameResult());
     }
 
     @Test
@@ -105,7 +106,7 @@ class UserTest {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
         user.judgeResult(false, false, 20);
 
-        Assertions.assertEquals(GameResult.WIN, user.toDto().getGameResult());
+        Assertions.assertEquals(GameResult.WIN, new UserInfoDto(user).getGameResult());
     }
 
     @Test
@@ -116,7 +117,7 @@ class UserTest {
         user.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
         user.judgeResult(false, false ,21);
 
-        Assertions.assertEquals(GameResult.DRAW, user.toDto().getGameResult());
+        Assertions.assertEquals(GameResult.DRAW, new UserInfoDto(user).getGameResult());
     }
 
     @DisplayName("버스트 판정이 올바르게 되는가?")

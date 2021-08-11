@@ -21,7 +21,7 @@ public class DealerTest {
     void test_getDealerInfoDto() {
         game.distributeInitCard();
         game.playersGetMoreCard();
-        PlayerInfoDto dealerInfoDto = dealer.toDto();
+        PlayerInfoDto dealerInfoDto = new PlayerInfoDto(dealer);
 
         Assertions.assertEquals(dealer.getName(), dealerInfoDto.getName());
         Assertions.assertEquals(dealer.getOwnedCards(), dealerInfoDto.getOwnedCards());

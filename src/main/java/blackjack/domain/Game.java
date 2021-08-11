@@ -43,13 +43,11 @@ public class Game {
     }
 
     public List<UserInfoDto> getUserInfoDtos() {
-        return users.stream().map(user ->
-                user.toDto()
-        ).collect(Collectors.toList());
+        return users.stream().map(UserInfoDto::new).collect(Collectors.toList());
     }
 
     public PlayerInfoDto getDealerInfoDto() {
-        return dealer.toDto();
+        return new PlayerInfoDto(dealer);
     }
 
     public PlayerInfoDto getDealerRevealInfoDto() {

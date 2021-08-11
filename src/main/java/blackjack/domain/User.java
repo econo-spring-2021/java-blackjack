@@ -13,10 +13,6 @@ public class User extends Player {
         this.name = name;
     }
 
-    public UserInfoDto toDto() {
-        return new UserInfoDto(name, ownedCards, gameResult, income);
-    }
-
     public int getBet() {
         return bet;
     }
