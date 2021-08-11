@@ -1,4 +1,3 @@
-import controller.Game;
 import domain.Card;
 import domain.Cards;
 import org.junit.jupiter.api.DisplayName;
@@ -15,18 +14,22 @@ public class CardsTest {
     @Test
     public void setCardsTest() {
         Cards cards = new Cards(Cards.setCards());
-        assertThat(cards.getCards().get(0).getCardName()).isEqualTo("2클로버");
+        assertThat(cards.getCardsList().get(0).getCardName()).isEqualTo("2클로버");
     }
 
-    @DisplayName("giveCard 테스트")
+    @DisplayName("addCard 테스트")
     @Test
-    public void giveCardTest() {
+    public void addCardTest() {
         ArrayList<Card> randomCards = new ArrayList<>();
         randomCards.add(new Card(Card.Type.클로버, "3"));
         randomCards.add(new Card(Card.Type.하트, "5"));
         Card card = randomCards.get(0);
-        Cards cards = new Cards(Cards.setCards());
-        assertThat(cards.giveCard(randomCards)).isEqualTo(card);
+
+        ArrayList<Card> cardsSet = new ArrayList<>();
+        cardsSet.add(new Card(Card.Type.하트, "2"));
+        Cards cards = new Cards(cardsSet);
+        cards.addCard(randomCards);
+        assertThat(cards.getCardsList().get(1)).isEqualTo(card);
     }
 
     @DisplayName("getCardsSum 테스트")
@@ -50,8 +53,8 @@ public class CardsTest {
         cardsSet.add(new Card(Card.Type.클로버, "A"));
 
         Cards cards = new Cards(cardsSet);
-        assertThat(cards.getCardPointNumber(cards.getCards().get(0).getNumber())).isEqualTo(2);
-        assertThat(cards.getCardPointNumber(cards.getCards().get(1).getNumber())).isEqualTo(10);
-        assertThat(cards.getCardPointNumber(cards.getCards().get(2).getNumber())).isEqualTo(11);
+        assertThat(cards.getCardPointNumber(cards.getCardsList().get(0).getNumber())).isEqualTo(2);
+        assertThat(cards.getCardPointNumber(cards.getCardsList().get(1).getNumber())).isEqualTo(10);
+        assertThat(cards.getCardPointNumber(cards.getCardsList().get(2).getNumber())).isEqualTo(11);
     }
 }

@@ -1,7 +1,6 @@
 package view;
 
 import domain.Player;
-import domain.Players;
 
 import java.util.ArrayList;
 
@@ -17,15 +16,15 @@ public class OutputView {
     public static void playerCardView(Player player) {
         StringBuilder view = new StringBuilder();
         view.append(player.getName()).append(CARD);
-        for (int i = 0; i < player.getCards().getCards().size(); i++) {
-            view.append(player.getCards().getCards().get(i).getCardName());
+        for (int i = 0; i < player.getPlayerCards().getCardsList().size(); i++) {
+            view.append(player.getPlayerCards().getCardsList().get(i).getCardName());
             view = addComma(i, player, view);
         }
         System.out.println(view.toString());
     }
 
     public static StringBuilder addComma(int i, Player player, StringBuilder view) {
-        if (i != player.getCards().getCards().size() - 1) {
+        if (i != player.getPlayerCards().getCardsList().size() - 1) {
             view.append(COMMA);
         }
         return view;
@@ -41,11 +40,11 @@ public class OutputView {
     public static void onePlayerResultView(Player player) {
         StringBuilder view = new StringBuilder();
         view.append(player.getName()).append(CARD);
-        for (int i = 0; i < player.getCards().getCards().size(); i++) {
-            view.append(player.getCards().getCards().get(i).getCardName());
+        for (int i = 0; i < player.getPlayerCards().getCardsList().size(); i++) {
+            view.append(player.getPlayerCards().getCardsList().get(i).getCardName());
             view = addComma(i, player, view);
         }
-        view.append(RESULT).append(player.getCards().getCardsSum());
+        view.append(RESULT).append(player.getPlayerCards().getCardsSum());
         System.out.println(view.toString());
     }
 

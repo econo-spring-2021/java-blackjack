@@ -46,20 +46,20 @@ public class PlayersTest {
     @DisplayName("giveTwoCards 테스트")
     @Test
     public void giveTwoCards() {
-        assertThat(dealer.getCards().getCards().get(0).getCardName()).isEqualTo("2클로버");
-        assertThat(dealer.getCards().getCards().get(1).getCardName()).isEqualTo("7하트");
+        assertThat(dealer.getPlayerCards().getCardsList().get(0).getCardName()).isEqualTo("2클로버");
+        assertThat(dealer.getPlayerCards().getCardsList().get(1).getCardName()).isEqualTo("7하트");
 
-        assertThat(asong.getCards().getCards().get(0).getCardName()).isEqualTo("8다이아몬드");
-        assertThat(asong.getCards().getCards().get(1).getCardName()).isEqualTo("9클로버");
+        assertThat(asong.getPlayerCards().getCardsList().get(0).getCardName()).isEqualTo("8다이아몬드");
+        assertThat(asong.getPlayerCards().getCardsList().get(1).getCardName()).isEqualTo("9클로버");
 
-        assertThat(hero.getCards().getCards().get(0).getCardName()).isEqualTo("4스페이드");
-        assertThat(hero.getCards().getCards().get(1).getCardName()).isEqualTo("K클로버");
+        assertThat(hero.getPlayerCards().getCardsList().get(0).getCardName()).isEqualTo("4스페이드");
+        assertThat(hero.getPlayerCards().getCardsList().get(1).getCardName()).isEqualTo("K클로버");
     }
 
     @DisplayName("checkDealerOneMoreCardNeeded 테스트")
     @Test
     public void checkDealerOneMoreCardNeededTest() {
-        assertThat(dealer.getCards().getCards().get(2).getCardName()).isEqualTo("2스페이드");
+        assertThat(dealer.getPlayerCards().getCardsList().get(2).getCardName()).isEqualTo("2스페이드");
     }
 
     @DisplayName("getDealerWinCount 테스트")

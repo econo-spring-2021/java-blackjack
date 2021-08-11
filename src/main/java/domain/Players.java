@@ -12,28 +12,28 @@ public class Players {
         this.players = players;
     }
 
-    public void getTwoCards(Cards cards) {
+    public void getTwoCards(Cards cardSet) {
         for (Player player : players) {
-            player.getCards().getCards().add(cards.giveCard(cards.getCards()));
-            player.getCards().getCards().add(cards.giveCard(cards.getCards()));
+            player.getPlayerCards().addCard(cardSet.getCardsList());
+            player.getPlayerCards().addCard(cardSet.getCardsList());
         }
     }
 
-    public void addPlayerOneMoreCard(Cards cards, int i) {
-        players.get(i).getCards().getCards().add(cards.giveCard(cards.getCards()));
+    public void addPlayerOneMoreCard(Cards cardSet, int i) {
+        players.get(i).getPlayerCards().addCard(cardSet.getCardsList());
     }
 
-    public boolean checkDealerOneMoreCardNeeded(Cards cards) {
+    public boolean checkDealerOneMoreCardNeeded(Cards cardSet) {
         Player dealer = players.get(0);
-        if (dealer.getCards().getCardsSum() <= DEALER_CARDS_MINIMUM_SUM) {
-            dealer.getCards().getCards().add(cards.giveCard(cards.getCards()));
+        if (dealer.getPlayerCards().getCardsSum() <= DEALER_CARDS_MINIMUM_SUM) {
+            dealer.getPlayerCards().addCard(cardSet.getCardsList());
             return true;
         }
         return false;
     }
 
     public int getDealerWinCount() {
-        int dealerScore = BLACKJACK_NUMBER - players.get(0).getCards().getCardsSum();
+        int dealerScore = BLACKJACK_NUMBER - players.get(0).getPlayerCards().getCardsSum();
         int dealerWinCount = 0;
         for (int i = 1; i < players.size(); i++) {
             players.get(i).setResult(dealerScore);

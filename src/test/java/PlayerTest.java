@@ -13,8 +13,8 @@ public class PlayerTest {
     @BeforeAll
     public static void setPlayer() {
         player = new Player("songa");
-        player.getCards().getCards().add(new Card(Card.Type.클로버, "9"));
-        player.getCards().getCards().add(new Card(Card.Type.클로버, "8"));
+        player.getPlayerCards().getCardsList().add(new Card(Card.Type.클로버, "9"));
+        player.getPlayerCards().getCardsList().add(new Card(Card.Type.클로버, "8"));
         int dealerScore = 5;
         //player setResult
         player.setResult(dealerScore);

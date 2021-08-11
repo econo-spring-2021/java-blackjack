@@ -24,7 +24,7 @@ public class Cards {
         this.cardsSum = 0;
     }
 
-    public ArrayList<Card> getCards() {
+    public ArrayList<Card> getCardsList() {
         return cards;
     }
 
@@ -47,8 +47,8 @@ public class Cards {
         return cards;
     }
 
-    public static Card giveCard(ArrayList<Card> cards) {
-        return cards.remove(0);
+    public void addCard(ArrayList<Card> cardSet) {
+        cards.add(cardSet.remove(0));
     }
 
     public int getCardsSum() {

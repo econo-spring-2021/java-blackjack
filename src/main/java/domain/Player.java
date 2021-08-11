@@ -8,16 +8,16 @@ public class Player {
     public static final int BLACKJACK_NUMBER = 21;
 
     private String name;
-    private final Cards cards;
+    private final Cards playerCards;
     private String result;
 
     public Player(String name) {
         this.name = name;
-        this.cards = new Cards(new ArrayList<>());
+        this.playerCards = new Cards(new ArrayList<>());
     }
 
-    public Cards getCards() {
-        return cards;
+    public Cards getPlayerCards() {
+        return playerCards;
     }
 
     public String getName() {
@@ -25,7 +25,7 @@ public class Player {
     }
 
     public void setResult(int dealerSum) {
-        int playerScore = BLACKJACK_NUMBER - cards.getCardsSum();
+        int playerScore = BLACKJACK_NUMBER - playerCards.getCardsSum();
         if (playerScore >= 0 && playerScore <= dealerSum) {
             result = WIN;
             return;

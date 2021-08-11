@@ -2,7 +2,6 @@ package view;
 
 
 import domain.Player;
-import domain.Players;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,11 +39,11 @@ public class InputView {
     }
 
     public static void playersTwoCardsView(ArrayList<Player> players) {
-        System.out.println(DEALER + ": " + players.get(0).getCards().getCards().get(0).getCardName());
+        System.out.println(DEALER + ": " + players.get(0).getPlayerCards().getCardsList().get(0).getCardName());
         for (int i = 1; i < players.size(); i++) {
             Player player = players.get(i);
             StringBuilder view = new StringBuilder();
-            view.append(player.getName() + CARD).append(player.getCards().getCards().get(0).getCardName()).append(COMMA).append(player.getCards().getCards().get(1).getCardName());
+            view.append(player.getName() + CARD).append(player.getPlayerCards().getCardsList().get(0).getCardName()).append(COMMA).append(player.getPlayerCards().getCardsList().get(1).getCardName());
             System.out.println(view.toString());
         }
         System.out.println();
