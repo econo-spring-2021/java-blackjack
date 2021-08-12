@@ -29,34 +29,44 @@ public class Player {
         return cardsSum;
     }
 
-    public void checkBlackJackFirst(int dealerCardSum) {
+    public int checkBlackJackFirst(int dealerCardSum) {
         if (dealerCardSum == BLACKJACK_NUMBER && cardsSum == BLACKJACK_NUMBER) {
+            int dealerMoney = bettingMoney;
             bettingMoney = 0;
-            return;
+            return dealerMoney;
         }
         if (dealerCardSum != BLACKJACK_NUMBER && cardsSum == BLACKJACK_NUMBER) {
             bettingMoney += bettingMoney / 2;
-            return;
+            return -bettingMoney;
         }
+        return 0;
     }
 
-    public void calculateBettingMoney(int dealerCardSum) {
+    public int calculateBettingMoney(int dealerCardSum) {
         cardsSum = playerCards.getCardsSum();
         if (dealerCardSum > BLACKJACK_NUMBER) {
-            return;
+            return -bettingMoney;
         }
         if (dealerCardSum == BLACKJACK_NUMBER && cardsSum == BLACKJACK_NUMBER) {
+            int dealerMoney = bettingMoney;
             bettingMoney = 0;
-            return;
+            return dealerMoney;
         }
         if (cardsSum > BLACKJACK_NUMBER) {
+            int dealerMoney = bettingMoney;
             bettingMoney = -bettingMoney;
-            return;
+            return dealerMoney;
         }
         if (cardsSum < dealerCardSum) {
+            int dealerMoney = bettingMoney;
             bettingMoney = -bettingMoney;
-            return;
+            return dealerMoney;
         }
+        return -bettingMoney;
+    }
+
+    public void addDealerProfit(int money) {
+        bettingMoney += money;
     }
 
     public int getCardsSum() {
@@ -64,7 +74,7 @@ public class Player {
     }
 
     public void setBettingMoney(int bettingMoney) {
-        this.bettingMoney = bettingMoney;
+        this.bettingMoney += bettingMoney;
     }
 
     public int getBettingMoney() {

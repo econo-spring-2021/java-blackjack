@@ -32,6 +32,7 @@ public class Players {
         return false;
     }
 
+    /*
     public int getDealerWinCount() {
         int dealerScore = BLACKJACK_NUMBER - players.get(0).getPlayerCards().getCardsSum();
         int dealerWinCount = 0;
@@ -40,30 +41,32 @@ public class Players {
             //dealerWinCount += players.get(i).getDealerWinCount();
         }
         return dealerWinCount;
-    }
+    }*/
 
     public int getPlayersSize() {
         return players.size();
     }
 
-    public void setPlayerBettingMoney(int index, int bettingMoney){
+    public void setPlayerBettingMoney(int index, int bettingMoney) {
         players.get(index).setBettingMoney(bettingMoney);
     }
 
-    public String getPlayerName(int index){
+    public String getPlayerName(int index) {
         return players.get(index).getName();
     }
 
-    public int checkPlayerCardsSum(int index){
+    public int checkPlayerCardsSum(int index) {
         return players.get(index).calculateCardsSum();
     }
 
-    public void checkPlayerBlackJack(int dealerCardSum, int index){
-        players.get(index).checkBlackJackFirst(dealerCardSum);
+    public void checkPlayerBlackJack(int dealerCardSum, int index) {
+        int dealerMoney = players.get(index).checkBlackJackFirst(dealerCardSum);
+        players.get(0).addDealerProfit(dealerMoney);
     }
 
-    public void checkPlayerProfit(int dealerCardSum, int index){
-        players.get(index).calculateBettingMoney(dealerCardSum);
+    public void checkPlayerProfit(int dealerCardSum, int index) {
+        int dealerMoney = players.get(index).calculateBettingMoney(dealerCardSum);
+        players.get(0).addDealerProfit(dealerMoney);
     }
 
     //Test용, View용
