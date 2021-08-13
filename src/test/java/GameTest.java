@@ -16,6 +16,7 @@ class GameTest {
 
     @BeforeEach
     void initGame() {
+        CardPack.resetCardPack();
         game = new Game();
         gameController = new GameController(game);
     }

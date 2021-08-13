@@ -42,4 +42,4 @@
 * [x] User 와 UserInfoDto 의 의존관계 정리
 * [x] Player.java의 getIsBlackjack 메소드 네이밍 변경
 * [x] Game.java의 judegePlayerBurst 메소드 리팩토링
-* [ ] CardPack.java의 리펙토링
+* [x] CardPack.java의 리펙토링

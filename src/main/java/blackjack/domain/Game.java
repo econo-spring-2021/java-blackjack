@@ -11,25 +11,21 @@ import java.util.stream.Collectors;
 
 public class Game {
     public static final int INIT_CARD_COUNT = 2;
-
-    CardPack cardPack;
+    
     List<User> users;
     Dealer dealer;
 
     public Game() {
-        this.cardPack = new CardPack();
         this.users = new ArrayList<>();
         this.dealer = new Dealer();
     }
 
     public Game(List<User> users) {
-        this.cardPack = new CardPack();
         this.users = users;
         this.dealer = new Dealer();
     }
 
     public Game(Dealer dealer) {
-        this.cardPack = new CardPack();
         this.users = new ArrayList<>();
         this.dealer = dealer;
     }
@@ -84,7 +80,7 @@ public class Game {
 
     private void giveInitCardToUser(int userIdx) {
         for (int i = 0; i < INIT_CARD_COUNT; i++) {
-            giveCardToUser(userIdx, cardPack.getRandomCard());
+            giveCardToUser(userIdx, CardPack.getInstance().getRandomCard());
         }
     }
 
@@ -99,7 +95,7 @@ public class Game {
 
     private void giveInitCardToDealer() {
         for (int i = 0; i < INIT_CARD_COUNT; i++) {
-            dealer.addCard(cardPack.getRandomCard());
+            dealer.addCard(CardPack.getInstance().getRandomCard());
         }
     }
 
@@ -114,7 +110,7 @@ public class Game {
     private void userGetMoreCardTillUnable(User user) {
         while (isAbleToGetMoreCard(user)) {
 
-            giveCardToUser(user, cardPack.getRandomCard());
+            giveCardToUser(user, CardPack.getInstance().getRandomCard());
             OutputView.printPlayersOwnedCards(user.getName(), user.getOwnedCards());
         }
     }
@@ -123,7 +119,7 @@ public class Game {
         while (dealer.isPossibleToGetMoreCard()) {
             OutputView.announcingDealerOneMoreCard();
 
-            dealer.addMoreCard(cardPack.getRandomCard());
+            dealer.addMoreCard(CardPack.getInstance().getRandomCard());
         }
     }
 
@@ -143,9 +139,10 @@ public class Game {
     }
 
     public void judgePlayerBurst() {
-        for (User user : users) {
-            user.judgeBurst();
-        }
+        users.forEach(User::judgeBurst);
+//        for (User user : users) {
+//            user.judgeBurst();
+//        }
         dealer.judgeBurst();
     }
 

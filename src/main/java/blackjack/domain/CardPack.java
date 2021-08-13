@@ -12,7 +12,9 @@ public class CardPack {
     List<Card> cards = new ArrayList<>();
     int selectedIndex = -1;
 
-    public CardPack() {
+    private static CardPack instance = new CardPack();
+
+    private CardPack() {
         initCardPack();
         shuffleCardPack();
     }
@@ -27,6 +29,14 @@ public class CardPack {
 
     private void shuffleCardPack() {
             Collections.shuffle(cards);
+    }
+
+    public static CardPack getInstance() {
+        return instance;
+    }
+
+    public static void resetCardPack() {
+        instance = new CardPack();
     }
 
     public Card getRandomCard() {

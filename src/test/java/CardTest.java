@@ -13,16 +13,16 @@ class CardTest {
 
     @BeforeEach
     void init() {
+        CardPack.resetCardPack();
         ownedCards = new OwnedCards();
     }
 
     @Test
     @DisplayName("카드의 갯수만큼 카드를 뽑을걍우, 모든 카드가 차례로 뽑히는지?")
     void test_getRandomCard() {
-        CardPack cardPack = new CardPack();
         List<Card> cards = new ArrayList<>();
         for (int i = 0; i < CardPack.CARD_SHAPE_COUNT * CardPack.CARD_VALUE_COUNT; i++) {
-            cards.add(cardPack.getRandomCard());
+            cards.add(CardPack.getInstance().getRandomCard());
         }
 
         // 서로 겹치는 카드는 없는가?
