@@ -14,7 +14,10 @@ public class OwnedCards {
         this.cards = cards;
     }
 
-    public Card getCard(int index) { return cards.get(index); }
+    public Card getCard(int index) {
+        return cards.get(index);
+    }
+
     public List<Card> getCards() {
         return cards;
     }
@@ -31,16 +34,19 @@ public class OwnedCards {
         cards.add(card);
     }
 
+    public boolean isBlackjack() {
+        return getScore() == Player.Player_LIMIT_CARD_VALUE;
+    }
+
+    public boolean isBurst() {
+        return getScore() > Player.Player_LIMIT_CARD_VALUE;
+    }
+
     public int getScore() {
         int score = getCardsValueSum();
+        score += getAdditionalAceScore(score);
 
-        score += getAddtitionAceScore(score);
-
-        if (score > User.USER_LIMIT_CARD_VALUE) {
-            return 0;
-        } else {
-            return score;
-        }
+        return score;
     }
 
     public int getCardsValueSum() {
@@ -52,23 +58,24 @@ public class OwnedCards {
         return sum;
     }
 
-    public int getAddtitionAceScore(int currentScore) {
-        int remainingValueUpToMax = User.USER_LIMIT_CARD_VALUE - currentScore;
+    public int getAdditionalAceScore(int currentScore) {
+        int remainingValueUpToMax = Player.Player_LIMIT_CARD_VALUE - currentScore;
         if (remainingValueUpToMax <= 0) {
             return 0;
         }
 
-        int possibleCointToAdd = remainingValueUpToMax / 9;
-        int additionAceCount = Math.min(possibleCointToAdd, getAceCount());
-        int additionAceValue = additionAceCount * 9;
+        int additionalAceGrade = CardGrade.ACE_MAX_GRADE - CardGrade.ACE_MIN_GRADE;
+        int possiblePointToAdd = remainingValueUpToMax / additionalAceGrade;
+        int additionalAceCount = Math.min(possiblePointToAdd, getAceCount());
 
-        return additionAceValue;
+        return additionalAceCount * additionalAceGrade;
     }
 
     public int getAceCount() {
         int count = 0;
         for (Card card : cards) {
-            count += card.returnOneIfAceElseReturnZero();
+            if (card.isAce())
+                count++;
         }
 
         return count;

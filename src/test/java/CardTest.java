@@ -13,16 +13,16 @@ class CardTest {
 
     @BeforeEach
     void init() {
+        CardPack.resetCardPack();
         ownedCards = new OwnedCards();
     }
 
     @Test
     @DisplayName("카드의 갯수만큼 카드를 뽑을걍우, 모든 카드가 차례로 뽑히는지?")
     void test_getRandomCard() {
-        CardPack cardPack = new CardPack();
         List<Card> cards = new ArrayList<>();
         for (int i = 0; i < CardPack.CARD_SHAPE_COUNT * CardPack.CARD_VALUE_COUNT; i++) {
-            cards.add(cardPack.getRandomCard());
+            cards.add(CardPack.getInstance().getRandomCard());
         }
 
         // 서로 겹치는 카드는 없는가?
@@ -39,8 +39,8 @@ class CardTest {
     @Test
     @DisplayName("카드가 5/5 일때, 점수가 올바르게 계산되는지?")
     void test_getTotalScore_with5and5() {
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[4]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[4]));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.FIVE));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.FIVE));
 
         Assertions.assertEquals(10, ownedCards.getScore());
     }
@@ -48,56 +48,54 @@ class CardTest {
     @Test
     @DisplayName("카드가 10/10/10 일때, 점수가 올바르게 계산되는지?")
     void test_getTotalScore_with10and10and10() {
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[9]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[9]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[9]));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
 
-        Assertions.assertEquals(0, ownedCards.getScore());
+        Assertions.assertEquals(30, ownedCards.getScore());
     }
 
     @Test
     @DisplayName("카드가 10/10/A 일때, 점수가 올바르게 계산되는지?")
     void test_getTotalScore_with10and10andACE() {
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[9]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[9]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[0]));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
 
         Assertions.assertEquals(21, ownedCards.getScore());
     }
 
     @Test
-    @DisplayName("에이스를 10으로 계산할 수 있을 때, 에이스의 갯수에 맞춰 추가 점수를 계산해내는지?")
+    @DisplayName("에이스를 11으로 계산할 수 있을 때, 에이스의 갯수에 맞춰 추가 점수를 계산해내는지?")
     void test_getMaxAdditionAceScore_ableCase() {
         // [7, ACE, ACE]
-        int score = 10;
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[7]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[0]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[0]));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.SEVEN));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
 
-        int maxScore = ownedCards.getAddtitionAceScore(score);
+        int additionalScore = ownedCards.getAdditionalAceScore(9);
 
-        Assertions.assertEquals(9, maxScore);
+        Assertions.assertEquals(CardGrade.ACE_MAX_GRADE - CardGrade.ACE_MIN_GRADE, additionalScore);
     }
 
     @Test
-    @DisplayName("에이스를 10으로 계산할 수 없을 때, 에이스의 갯수에 맞춰 추가 점수를 계산해내는지?")
+    @DisplayName("에이스를 11으로 계산할 수 없을 때, 에이스의 갯수에 맞춰 추가 점수를 계산해내는지?")
     void test_getMaxAdditionAceScore_unableCase() {
         // [10, 10, ACE]
         int score = 22;
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[9]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[9]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[1]));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
 
-        int maxScore = ownedCards.getAddtitionAceScore(score);
+        int additionalScore = ownedCards.getAdditionalAceScore(score);
 
-        Assertions.assertEquals(0, maxScore);
+        Assertions.assertEquals(0, additionalScore);
     }
 
     @Test
     @DisplayName("에이스인 카드의 갯수를 올바르게 세아리는지?")
     void test_getAceCount() {
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[9]));
-        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.values()[0]));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        ownedCards.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
 
         Assertions.assertEquals(1, ownedCards.getAceCount());
     }

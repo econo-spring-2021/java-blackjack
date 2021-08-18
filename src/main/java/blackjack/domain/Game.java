@@ -1,6 +1,6 @@
 package blackjack.domain;
 
-import blackjack.domain.dto.DealerInfoDto;
+import blackjack.domain.dto.PlayerInfoDto;
 import blackjack.domain.dto.UserInfoDto;
 import blackjack.view.InputView;
 import blackjack.view.OutputView;
@@ -11,25 +11,21 @@ import java.util.stream.Collectors;
 
 public class Game {
     public static final int INIT_CARD_COUNT = 2;
-
-    CardPack cardPack;
+    
     List<User> users;
     Dealer dealer;
 
     public Game() {
-        this.cardPack = new CardPack();
         this.users = new ArrayList<>();
         this.dealer = new Dealer();
     }
 
     public Game(List<User> users) {
-        this.cardPack = new CardPack();
         this.users = users;
         this.dealer = new Dealer();
     }
 
     public Game(Dealer dealer) {
-        this.cardPack = new CardPack();
         this.users = new ArrayList<>();
         this.dealer = dealer;
     }
@@ -43,21 +39,28 @@ public class Game {
     }
 
     public List<UserInfoDto> getUserInfoDtos() {
-        return users.stream().map(user ->
-                user.toDto()
-        ).collect(Collectors.toList());
+        return users.stream().map(UserInfoDto::new).collect(Collectors.toList());
     }
 
-    public DealerInfoDto getDealerInfoDto() {
-        return dealer.toDto();
+    public PlayerInfoDto getDealerInfoDto() {
+        return new PlayerInfoDto(dealer);
     }
 
-    public DealerInfoDto getDealerRevealInfoDto() {
+    public PlayerInfoDto getDealerRevealInfoDto() {
         return dealer.toRevealDto();
     }
 
     public void addUser(User user) {
         users.add(user);
+    }
+
+    public void getBetFromUsers() {
+        for (User user : users) {
+            OutputView.askUserBet(user.getName());
+
+            int bet = InputView.getUserBet();
+            user.setBet(bet);
+        }
     }
 
     public void distributeInitCard() {
@@ -67,9 +70,17 @@ public class Game {
         giveInitCardToDealer();
     }
 
+    public void judgePlayerBlackjack() {
+        users.forEach(User::judgeBlackjack);
+//        for (User user : users) {
+//            user.judgeBlackjack();
+//        }
+        dealer.judgeBlackjack();
+    }
+
     private void giveInitCardToUser(int userIdx) {
         for (int i = 0; i < INIT_CARD_COUNT; i++) {
-            giveCardToUser(userIdx, cardPack.getRandomCard());
+            giveCardToUser(userIdx, CardPack.getInstance().getRandomCard());
         }
     }
 
@@ -84,12 +95,8 @@ public class Game {
 
     private void giveInitCardToDealer() {
         for (int i = 0; i < INIT_CARD_COUNT; i++) {
-            giveCardToDealer(cardPack.getRandomCard());
+            dealer.addCard(CardPack.getInstance().getRandomCard());
         }
-    }
-
-    private void giveCardToDealer(Card card) {
-        dealer.addCard(card);
     }
 
     public void playersGetMoreCard() {
@@ -97,20 +104,22 @@ public class Game {
             userGetMoreCardTillUnable(user);
         }
 
-        dealerGetMoreCardTillUnable(dealer);
+        dealerGetMoreCardTillUnable();
     }
 
     private void userGetMoreCardTillUnable(User user) {
         while (isAbleToGetMoreCard(user)) {
-            giveCardToUser(user, cardPack.getRandomCard());
+
+            giveCardToUser(user, CardPack.getInstance().getRandomCard());
+            OutputView.printPlayersOwnedCards(user.getName(), user.getOwnedCards());
         }
     }
 
-    private void dealerGetMoreCardTillUnable(Dealer dealer) {
-        while (isAbleToGetMoreCard(dealer)) {
+    private void dealerGetMoreCardTillUnable() {
+        while (dealer.isPossibleToGetMoreCard()) {
             OutputView.announcingDealerOneMoreCard();
 
-            giveCardToDealer(cardPack.getRandomCard());
+            dealer.addMoreCard(CardPack.getInstance().getRandomCard());
         }
     }
 
@@ -129,22 +138,54 @@ public class Game {
         return true;
     }
 
-    private boolean isAbleToGetMoreCard(Dealer dealer) {
-        if (dealer.isPossibleToGetMoreCard()) {
-            return true;
-        }
-
-        return false;
+    public void judgePlayerBurst() {
+        users.forEach(User::judgeBurst);
+//        for (User user : users) {
+//            user.judgeBurst();
+//        }
+        dealer.judgeBurst();
     }
 
-    public void judgeUsersResult() {
+    public void judgeUsersGameResult() {
+        boolean dealerBlackjack = dealer.isBlackjack();
+        boolean dealerBurst = dealer.getIsBurst();
         int dealerScore = dealer.getOwnedCards().getScore();
         for (User user : users) {
-            user.judgeResult(dealerScore);
+            user.judgeResult(dealerBlackjack, dealerBurst, dealerScore);
         }
     }
 
-    public void judgeDealerResult(List<UserInfoDto> userInfoDtos) {
-        dealer.judgeDealerResult(userInfoDtos);
+    public void judgePlayersIncome() {
+        for (User user : users) {
+            if (user.gameResult == GameResult.WIN) {
+                judgePlayerIncomeOnUserWin(user);
+                continue;
+            }
+
+            if (user.gameResult == GameResult.LOSE) {
+                judgePlayerIncomeOnUserLose(user);
+            }
+        }
     }
+
+    private void judgePlayerIncomeOnUserWin(User user) {
+        int userBet = user.getBet();
+
+        if (user.isBlackjack()) {
+            user.earnBlackjackBet(userBet);
+            dealer.loseBlackjackBet(userBet);
+            return;
+        }
+
+        user.earnBet(userBet);
+        dealer.loseBet(userBet);
+    }
+
+    private void judgePlayerIncomeOnUserLose(User user) {
+        int userBet = user.getBet();
+
+        user.loseBet(userBet);
+        dealer.earnBet(userBet);
+    }
+
 }

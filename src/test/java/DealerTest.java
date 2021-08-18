@@ -1,5 +1,5 @@
 import blackjack.domain.*;
-import blackjack.domain.dto.DealerInfoDto;
+import blackjack.domain.dto.PlayerInfoDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +21,7 @@ public class DealerTest {
     void test_getDealerInfoDto() {
         game.distributeInitCard();
         game.playersGetMoreCard();
-        DealerInfoDto dealerInfoDto = dealer.toDto();
+        PlayerInfoDto dealerInfoDto = new PlayerInfoDto(dealer);
 
         Assertions.assertEquals(dealer.getName(), dealerInfoDto.getName());
         Assertions.assertEquals(dealer.getOwnedCards(), dealerInfoDto.getOwnedCards());
@@ -31,31 +31,28 @@ public class DealerTest {
     @DisplayName("DealearRevealInfoDto 가 올바르게 얻어지는지?")
     void test_getDealerRevealInfoDto() {
         game.distributeInitCard();
-        DealerInfoDto dealerRevealInfoDto = dealer.toRevealDto();
+        PlayerInfoDto dealerRevealInfoDto = dealer.toRevealDto();
 
         Assertions.assertEquals(dealer.getOwnedCards().getCard(0), dealerRevealInfoDto.getOwnedCards().getCard(0));
     }
 
     @Test
-    @DisplayName("딜러의 게임 전적을 올바르게 판단하는지?")
-    void test_judgeDealerResult() {
-        User a = new User("a");
-        a.addCard(new Card(CardShape.CLOVER, CardGrade.KING));
-        a.addCard(new Card(CardShape.CLOVER, CardGrade.KING));
-        game.addUser(a);
-        User b = new User("b");
-        b.addCard(new Card(CardShape.CLOVER, CardGrade.FIVE));
-        b.addCard(new Card(CardShape.CLOVER, CardGrade.FIVE));
-        game.addUser(b);
+    @DisplayName("블랙잭 판정이 올바르게 되는가?")
+    void test_judgeDealerBlackjack() {
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.ACE));
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        dealer.judgeBlackjack();
 
-        game.getDealer().addCard(new Card(CardShape.CLOVER, CardGrade.FIVE));
-        game.getDealer().addCard(new Card(CardShape.CLOVER, CardGrade.FIVE));
+        Assertions.assertTrue(dealer.isBlackjack());
+    }
 
-        game.judgeUsersResult();
-        game.judgeDealerResult(game.getUserInfoDtos());
-        DealerInfoDto dealerInfoDto = game.getDealerInfoDto();
+    @DisplayName("버스트 판정이 올바르게 되는가?")
+    void test_judgeDealerBurst() {
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        dealer.addCard(new Card(CardShape.CLOVER, CardGrade.JUMP));
+        dealer.judgeBurst();
 
-        Assertions.assertEquals(1, dealerInfoDto.getDrawCount());
-        Assertions.assertEquals(1, dealerInfoDto.getLoseCount());
+        Assertions.assertTrue(dealer.getIsBurst());
     }
 }

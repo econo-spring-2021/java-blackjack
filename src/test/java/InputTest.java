@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-public class InputTest {
+class InputTest {
 
     @Test
     @DisplayName("이름을 담긴 정상적인 문자열이 리스트로 변환되는지?")

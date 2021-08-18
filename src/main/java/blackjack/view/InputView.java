@@ -19,6 +19,17 @@ public class InputView {
         }
     }
 
+    public static int getUserBet() {
+        try {
+            String str = scanner.nextLine();
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            OutputView.printExceptionMessage(e);
+
+            return getUserBet();
+        }
+    }
+
     public static List<String> parseNameString(String str) throws IllegalArgumentException {
         if (returnStringAfterRemovingSpace(str).equals(""))
             throw new IllegalArgumentException("빈 문자열");

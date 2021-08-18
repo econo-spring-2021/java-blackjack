@@ -25,10 +25,7 @@ public class Card {
         return (grade == card.grade && shape == card.shape);
     }
 
-    public int returnOneIfAceElseReturnZero() {
-        if (grade.getDelimiter().equals("A"))
-            return 1;
-        else
-            return 0;
+    public boolean isAce() {
+        return grade.getDelimiter().equals("A");
     }
 }
